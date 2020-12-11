@@ -1,0 +1,79 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+@import '../baseline/elevations.scss';
+
+.searchbar {
+  @include MixinFontFamily;
+  height: 38px;
+  border: 1px solid $gray-300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  transition: all 0.25s ease-in-out;
+
+  .searchbar__section_search_icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .searchbar__section_input_search {
+    width: 100%;
+    input {
+      @include MixinParagraphRegular;
+      padding: 0 8px;
+      border: 0;
+      outline: none;
+      width: 100%;
+      color: $gray-600;
+    }
+  }
+
+  .searchbar__section_erase_field {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    display: none;
+  }
+
+  .searchbar__section_separator {
+    border-right: 1px solid $gray-300;
+    width: 1px;
+    height: 24px;
+    display: none;
+  }
+
+  .searchbar__section_filters {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 8px;
+    .filterCounter {
+      @include MixinParagraphMedium;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      width: 24px;
+      height: 24px;
+      border-radius: 100%;
+      background-color: $orange-100;
+    }
+  }
+
+  &:hover {
+    @include Elevation3;
+    .searchbar__section_input_search {
+      input {
+        color: $black;
+      }
+    }
+    .searchbar__section_erase_field,
+    .searchbar__section_separator {
+      display: flex;
+    }
+  }
+}

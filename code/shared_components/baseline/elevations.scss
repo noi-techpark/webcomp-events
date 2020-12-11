@@ -1,0 +1,23 @@
+@mixin Elevation1 {
+  box-shadow: 0px 1px 3px rgba(51, 51, 51, 0.12), 0px 1px 2px rgba(51, 51, 51, 0.24);
+}
+
+@mixin Elevation2 {
+  box-shadow: 0px 3px 6px rgba(51, 51, 51, 0.15), 0px 2px 4px rgba(51, 51, 51, 0.12);
+}
+
+@mixin Elevation3 {
+  box-shadow: 0px 10px 20px rgba(51, 51, 51, 0.15), 0px 3px 6px rgba(51, 51, 51, 0.1);
+}
+
+@mixin Elevation4 {
+  box-shadow: 0px 15px 25px rgba(51, 51, 51, 0.15), 0px 5px 10px rgba(51, 51, 51, 0.05);
+}
+
+@mixin Elevation5 {
+  box-shadow: 0px 20px 40px rgba(51, 51, 51, 0.2);
+}
+
+@mixin ElevationInner {
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+}

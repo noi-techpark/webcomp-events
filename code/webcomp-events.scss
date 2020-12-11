@@ -1,0 +1,262 @@
+@import "./shared_components/baseline/colors.scss";
+@import "./shared_components/baseline/typography.scss";
+
+.events {
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  position: relative;
+  overflow: hidden;
+  @media only screen and (min-width: 768px) {
+    // width: var(--width);
+    // height: var(--height);
+  }
+}
+
+#map {
+  width: 100vw;
+  height: 99vh;
+  z-index: 1;
+
+  @media only screen and (min-width: 320px) {
+    // width: 100%;
+    // height: 100vh;
+    // &.closed {
+    //   height: var(--height);
+    // }
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: var(--width);
+    height: var(--height);
+    // &.closed {
+    //   height: var(--height);
+    // }
+  }
+}
+
+#list {
+  width: 100vw;
+  height: 99vh;
+  z-index: 1;
+
+  @media only screen and (min-width: 992px) {
+    width: var(--width);
+    height: var(--height);
+  }
+
+  .link {
+    @include MixinParagraphRegular;
+    color: $green-200;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.events__sideBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 99vh;
+  z-index: 2;
+  overflow: hidden;
+  width: 100%;
+  @media only screen and (min-width: 768px) {
+    max-height: calc(100% - 32px);
+    width: calc(100% - 32px);
+    width: 350px;
+    top: 16px;
+    left: 16px;
+  }
+
+  .events__sideBar__tabBar {
+    background-color: white;
+  }
+  .events__sideBar__searchBar {
+    background-color: white;
+    .searchBox {
+      .searchBox__resoult_list {
+        max-height: calc(var(--height) - 32px - 86px);
+        overflow-y: auto;
+        ul {
+          list-style: none;
+          padding-left: 8px;
+          margin: 16px 0 0 0;
+          li {
+            @include MixinParagraphRegular;
+            line-height: 18px;
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            cursor: pointer;
+            img {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .events__sideBar__details,
+  .events__sideBar__filters {
+    border: 1px solid $gray-300;
+    height: calc(var(--height) - 86px);
+    background-color: $white;
+    overflow-y: auto;
+
+    p {
+      @include MixinParagraphRegular;
+      margin: 16px;
+      a {
+        @include MixinParagraphRegular;
+        color: $green-200;
+      }
+    }
+    .header {
+      padding: 8px 16px;
+    }
+    .caption {
+      @include MixinCaption;
+      color: $gray-600;
+      margin: 16px 16px 0 16px;
+      display: flex;
+      align-items: center;
+      span {
+        height: 16px;
+        margin-left: 4px;
+        img {
+          height: 100%;
+        }
+      }
+      &.pointer {
+        cursor: pointer;
+      }
+      &.space {
+        margin-bottom: 8px;
+        margin-top: 16px;
+      }
+    }
+    .options_container {
+      margin: 8px 16px 0 16px;
+    }
+    .filters,
+    .details {
+      padding-bottom: 24px;
+    }
+    .filters__divider {
+      margin-top: 16px;
+    }
+  }
+}
+
+.events__language_picker {
+  display: inline;
+  position: absolute;
+  right: 16px;
+  z-index: 3;
+  top: 80px;
+
+  &.big_margin {
+    top: 114px;
+  }
+  @media only screen and (min-width: 768px) {
+    top: 16px;
+  }
+}
+
+.map_controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+}
+
+.events__list {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .events__list_content {
+    margin: 80px 0;
+    @media only screen and (min-width: 992px) {
+      margin: 80px 16px 80px 16px;
+    }
+    h3 {
+      @include MixinH3;
+    }
+    .events__list_content_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      &:nth-child(odd) {
+        background-color: $gray-100;
+      }
+      > div {
+        @include MixinParagraphRegular;
+        width: 33%;
+        padding: 0 16px;
+        &:nth-child(2),
+        &:nth-child(3) {
+          display: none;
+          @media only screen and (min-width: 992px) {
+            display: block;
+          }
+        }
+      }
+      &.header {
+        @include MixinCaption;
+        color: $gray-600;
+      }
+    }
+  }
+}
+
+.events__list__pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background-color: $white;
+  padding: 4px;
+  p {
+    @include MixinParagraphMedium;
+    white-space: nowrap;
+    margin: 0 16px;
+  }
+}
+
+.globalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $gray-500;
+  opacity: 0.6;
+  z-index: 4;
+}
+
+// Globals
+.mt-4px {
+  margin-top: 4px;
+}
+.mt-8px {
+  margin-top: 8px;
+}
+.mt-16px {
+  margin-top: 16px;
+}
+
+// Leaflet clustering
+.leaflet-div-icon {
+  border: 0;
+  border-radius: 100%;
+  background-color: $blue-100;
+  color: $white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

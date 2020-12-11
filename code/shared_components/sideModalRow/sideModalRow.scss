@@ -1,0 +1,32 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+@import '../baseline/elevations.scss';
+
+.sideModalRow {
+  @include MixinFontFamily;
+  padding: 8px 16px;
+
+  &.horizontal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &.vertical {
+  }
+
+  .sideModalRow__title {
+    @include MixinCaption;
+    margin: 0;
+    color: $gray-600;
+  }
+
+  .sideModalRow__text {
+    @include MixinParagraphRegular;
+    margin: 0;
+    a {
+      color: $green-200;
+    }
+  }
+}
