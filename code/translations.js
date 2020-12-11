@@ -1,8 +1,8 @@
 export const t = {
   events: {
-    it: "Gastronomie",
+    it: "Eventi",
     en: "Events",
-    de: "Gastronomie",
+    de: "Veranstaltungen",
   },
   information: {
     it: "Informazioni",
