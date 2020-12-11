@@ -1,18 +1,16 @@
 import { html } from "lit-element";
 import { requestTourismEventDetails } from "../api/events";
 import { t } from "../translations";
+import dayjs from "dayjs";
 
-function renderRows(Detail, CategoryCodes, LocationInfo, Id) {
+function renderRows(Detail, DateBegin, DateEnd, LocationInfo, Id) {
   if (!Detail[this.language]) {
     return null;
   }
   return html`<div class="events__list_content_row">
     <div>${Detail[this.language].Title}</div>
-    <div>
-      ${CategoryCodes.map(({ Shortname }) => {
-        return html`${Shortname}, `;
-      })}
-    </div>
+    <div>${dayjs(DateBegin).format("DD/MM/YYYY")}</div>
+    <div>${dayjs(DateEnd).format("DD/MM/YYYY")}</div>
     <div>${LocationInfo.TvInfo.Name[this.language]}</div>
     <div>
       <p
@@ -48,15 +46,17 @@ export function render__list() {
         <div><h3>${t[`events`][this.language]}</h3></div>
         <div class="events__list_content_row header">
           <div>${t[`shortname`][this.language].toUpperCase()}</div>
-          <div>${t[`category`][this.language].toUpperCase()}</div>
+          <div>${t[`startDate`][this.language].toUpperCase()}</div>
+          <div>${t[`endDate`][this.language].toUpperCase()}</div>
           <div>${t[`location`][this.language].toUpperCase()}</div>
           <div>${t[`actions`][this.language].toUpperCase()}</div>
         </div>
         ${Items
-          ? Items.map(({ Detail, CategoryCodes, LocationInfo, Id }) => {
+          ? Items.map(({ Detail, DateBegin, DateEnd, LocationInfo, Id }) => {
               return renderRows.bind(this)(
                 Detail,
-                CategoryCodes,
+                DateBegin,
+                DateEnd,
                 LocationInfo,
                 Id
               );
@@ -70,8 +70,7 @@ export function render__list() {
         content="${t[`prev`][this.language]}"
         @click="${() => {
           if (CurrentPage > 1) {
-            this.listEventsCurrentPage =
-              this.listEventsCurrentPage - 1;
+            this.listEventsCurrentPage = this.listEventsCurrentPage - 1;
           }
         }}"
       ></wc-button>
@@ -81,8 +80,7 @@ export function render__list() {
         content="${t[`next`][this.language]}"
         @click="${() => {
           if (CurrentPage < TotalPages) {
-            this.listEventsCurrentPage =
-              this.listEventsCurrentPage + 1;
+            this.listEventsCurrentPage = this.listEventsCurrentPage + 1;
           }
         }}"
       ></wc-button>

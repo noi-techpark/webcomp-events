@@ -2,7 +2,7 @@ import { html } from "lit-element";
 // import { debounce, request__get_coordinates_from_search } from "../utils";
 import { t } from "../translations";
 import findPositionBlueIcon from "../assets/find-position-blue.svg";
-import { countFilters } from "../utils";
+import { countFilters, STATE_MODALITIES } from "../utils";
 
 export function render_searchPlaces() {
   const handle_onchange = (value) => {

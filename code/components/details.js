@@ -6,33 +6,20 @@ import { t } from "../translations";
 export function render_details() {
   const { Detail, Latitude, Longitude } = this.currentEvent;
 
-  const { EventDate, Topics, TopicRIDs, LocationInfo } = this.currentEvent;
-  const {
-    DateBegin,
-    DateEnd,
-    ContactInfos,
-    OrganizerInfos,
-  } = this.currentEvent;
+  const { TopicRIDs, LocationInfo } = this.currentEvent;
+  const { DateBegin, DateEnd } = this.currentEvent;
+  const { ContactInfos, OrganizerInfos } = this.currentEvent;
   const { Title, BaseText } = Detail[this.language];
   // ContactInfos
   const { Address, City, CompanyName, CountryCode, CountryName } = ContactInfos[
     this.language
   ];
-  const { Email, Faxnumber, Givenname } = ContactInfos[this.language];
-  const { Phonenumber, Surname, Url, ZipCode } = ContactInfos[this.language];
-  // OrganizerInfos
-  // const { Address, City, CompanyName } = OrganizerInfos[this.language];
-  // const { CountryCode, CountryName } = OrganizerInfos[this.language];
-  // const { Email, Faxnumber, Givenname } = OrganizerInfos[this.language];
-  // const { Phonenumber, Surname, Url, ZipCode } = OrganizerInfos[this.language];
+  const { Email, Faxnumber } = ContactInfos[this.language];
+  const { Phonenumber, Url, ZipCode } = ContactInfos[this.language];
 
   const topicText = this.listEventsTopics.filter((topic) => {
     return topic.Id === TopicRIDs[0];
   })[0].TypeDesc[this.language];
-
-  // console.log(LocationInfo);
-
-  console.log(DateBegin, DateEnd);
 
   return html` <div class="details">
     <div class="header">
