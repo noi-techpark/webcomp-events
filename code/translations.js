@@ -9,6 +9,11 @@ export const t = {
     en: "Information",
     de: "Information",
   },
+  registration: {
+    it: "Registrazione",
+    en: "Registration",
+    de: "Anmeldung",
+  },
   where: {
     it: "Dove",
     en: "Where",
@@ -84,6 +89,16 @@ export const t = {
     it: "Organizzazione",
     en: "Organization",
     de: "Organisation",
+  },
+  organizer: {
+    it: "Organizzatore",
+    en: "Organizer",
+    de: "Veranstalter",
+  },
+  informationOnTheOrganization: {
+    it: "Informazioni sull’organizzazione",
+    en: "Information on the organization",
+    de: "Informationen zur Organisation",
   },
   address: {
     it: "Indirizzo",

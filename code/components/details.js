@@ -7,23 +7,32 @@ export function render_details() {
   const { Detail, Latitude, Longitude } = this.currentEvent;
 
   const { EventDate, Topics, TopicRIDs, LocationInfo } = this.currentEvent;
-
-  // const { OperationSchedule, CategoryCodes, ContactInfos } = this.currentEvent;
-  // const { Facilities } = this.currentEvent;
-  const { Title, BaseText, EventDatesBegin, EventDatesEnd } = Detail[
+  const {
+    DateBegin,
+    DateEnd,
+    ContactInfos,
+    OrganizerInfos,
+  } = this.currentEvent;
+  const { Title, BaseText } = Detail[this.language];
+  // ContactInfos
+  const { Address, City, CompanyName, CountryCode, CountryName } = ContactInfos[
     this.language
   ];
-  // const { Address, City, CompanyName, CountryCode, CountryName } = ContactInfos[
-  //   this.language
-  // ];
-  // const { Email, Faxnumber, Givenname } = ContactInfos[this.language];
-  // const { Phonenumber, Surname, Url, ZipCode } = ContactInfos[this.language];
+  const { Email, Faxnumber, Givenname } = ContactInfos[this.language];
+  const { Phonenumber, Surname, Url, ZipCode } = ContactInfos[this.language];
+  // OrganizerInfos
+  // const { Address, City, CompanyName } = OrganizerInfos[this.language];
+  // const { CountryCode, CountryName } = OrganizerInfos[this.language];
+  // const { Email, Faxnumber, Givenname } = OrganizerInfos[this.language];
+  // const { Phonenumber, Surname, Url, ZipCode } = OrganizerInfos[this.language];
 
   const topicText = this.listEventsTopics.filter((topic) => {
     return topic.Id === TopicRIDs[0];
   })[0].TypeDesc[this.language];
 
-  console.log(LocationInfo);
+  // console.log(LocationInfo);
+
+  console.log(DateBegin, DateEnd);
 
   return html` <div class="details">
     <div class="header">
@@ -66,21 +75,137 @@ export function render_details() {
     </div>
 
     <div>
+      <wc-divider></wc-divider>
+    </div>
+    <div>
       <div>
         <p class="caption space">${t["dates"][this.language].toUpperCase()}</p>
       </div>
-      ${EventDatesStart.length
+      ${DateBegin
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.horizontal}"
             .title="${t["startDate"][this.language]}"
-            .text="${dayjs(EventDatesBegin[0]).format("DD/MM/YYYY")}"
+            .text="${dayjs(DateBegin).format("DD/MM/YYYY")}"
           ></wc-sidemodal-row>`
         : null}
-      ${EventDatesEnd.length
+      ${DateEnd
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.horizontal}"
             .title="${t["endDate"][this.language]}"
-            .text="${dayjs(EventDatesEnd[0]).format("DD/MM/YYYY")}"
+            .text="${dayjs(DateEnd).format("DD/MM/YYYY")}"
+          ></wc-sidemodal-row>`
+        : null}
+    </div>
+    <div>
+      <wc-divider></wc-divider>
+    </div>
+    <div>
+      <div>
+        <p class="caption space">
+          ${t["informationOnTheOrganization"][this.language].toUpperCase()}
+        </p>
+      </div>
+      ${OrganizerInfos[this.language].CompanyName
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["organizer"][this.language]}"
+            .text="${OrganizerInfos[this.language].CompanyName}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${OrganizerInfos[this.language].Address ||
+      OrganizerInfos[this.language].City ||
+      OrganizerInfos[this.language].CountryName ||
+      OrganizerInfos[this.language].CountryCode
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["address"][this.language]}"
+            .text="${OrganizerInfos[this.language].Address ||
+            ""} ${OrganizerInfos[this.language].City || ""} ${OrganizerInfos[
+              this.language
+            ].CountryName || ""} ${OrganizerInfos[this.language].CountryCode ||
+            ""}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${OrganizerInfos[this.language].ZipCode
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["place"][this.language]}"
+            .text="${OrganizerInfos[this.language].ZipCode}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${OrganizerInfos[this.language].Phonenumber ||
+      OrganizerInfos[this.language].Faxnumber
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["telFax"][this.language]}"
+            .text="${OrganizerInfos[this.language].Phonenumber ||
+            "---"} / ${OrganizerInfos[this.language].Faxnumber || "---"}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${OrganizerInfos[this.language].Email
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["eMail"][this.language]}"
+            .text="${OrganizerInfos[this.language].Email}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${OrganizerInfos[this.language].Url
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["web"][this.language]}"
+            .text="${OrganizerInfos[this.language].Url}"
+          ></wc-sidemodal-row>`
+        : null}
+    </div>
+    <div>
+      <wc-divider></wc-divider>
+    </div>
+    <div>
+      <div>
+        <p class="caption space">
+          ${t["contactInfo"][this.language].toUpperCase()}
+        </p>
+      </div>
+      ${CompanyName
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["organizer"][this.language]}"
+            .text="${CompanyName}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${Address || City || CountryName || CountryCode
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["address"][this.language]}"
+            .text="${Address} ${City} ${CountryName} ${CountryCode}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${ZipCode
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["place"][this.language]}"
+            .text="${ZipCode}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${Phonenumber || Faxnumber
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["telFax"][this.language]}"
+            .text="${Phonenumber || "---"} / ${Faxnumber || "---"}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${Email
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["eMail"][this.language]}"
+            .text="${Email}"
+          ></wc-sidemodal-row>`
+        : null}
+      ${Url
+        ? html`<wc-sidemodal-row
+            .type="${SIDE_MODAL_ROW_TYPES.vertical}"
+            .title="${t["web"][this.language]}"
+            .text="${Url}"
           ></wc-sidemodal-row>`
         : null}
     </div>
