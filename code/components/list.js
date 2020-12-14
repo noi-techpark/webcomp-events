@@ -35,8 +35,6 @@ function renderRows(Detail, DateBegin, DateEnd, LocationInfo, Id) {
 
 export function render__list() {
   if (!this.listEvents) {
-    console.log("no list");
-
     return null;
   }
   const { Items, TotalPages, CurrentPage, Id } = this.listEvents;

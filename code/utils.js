@@ -13,22 +13,12 @@ export const LANGUAGES = {
 
 export const STATE_DEFAULT_FILTERS = {
   radius: "0",
-  categories: [],
-  facilityCodesCreditCard: [],
-  facilityCodesFeatures: [],
-  facilityCodesQuality: [],
-  facilityCodesCuisine: [],
-  facilityCodesCeremony: [],
+  dateFrom: "",
+  dateTo: "",
+  topic: "",
 };
 
-export const STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN = {
-  category: false,
-  facilityCodesCreditCard: false,
-  facilityCodesFeatures: false,
-  facilityCodesQuality: false,
-  facilityCodesCuisine: false,
-  facilityCodesCeremony: false,
-};
+export const STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN = {};
 
 export const isMobile = () => {
   return document.body.offsetWidth < 992;
@@ -78,22 +68,15 @@ export function getLatLongFromStationDetail(o) {
 
 export function countFilters(filters) {
   let filtersNumber = 0;
-  if (filters.categories.length) {
+  if (filters.radius !== "0") {
     filtersNumber = filtersNumber + 1;
   }
-  if (filters.facilityCodesCreditCard.length) {
+
+  if (filters.dateFrom.length || filters.dateTo.length) {
     filtersNumber = filtersNumber + 1;
   }
-  if (filters.facilityCodesFeatures.length) {
-    filtersNumber = filtersNumber + 1;
-  }
-  if (filters.facilityCodesQuality.length) {
-    filtersNumber = filtersNumber + 1;
-  }
-  if (filters.facilityCodesCuisine.length) {
-    filtersNumber = filtersNumber + 1;
-  }
-  if (filters.facilityCodesCeremony.length) {
+
+  if (filters.topic !== "") {
     filtersNumber = filtersNumber + 1;
   }
 

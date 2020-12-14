@@ -114,6 +114,7 @@ class Events extends LitElement {
           propName === "language") &&
         this.modality === STATE_MODALITIES.list
       ) {
+        this.isLoading = true;
         requestTourismEventsPaginated(
           this.filters,
           this.currentLocation,
@@ -121,6 +122,7 @@ class Events extends LitElement {
           this.language
         ).then((events) => {
           this.listEvents = events;
+          this.isLoading = false;
         });
       }
       if (
@@ -144,8 +146,6 @@ class Events extends LitElement {
         }
       }
       if (propName === "modality" && oldValue === STATE_MODALITIES.list) {
-        console.log(propName, oldValue);
-
         this.isLoading = true;
         initializeMap.bind(this)();
         drawUserOnMap.bind(this)();
@@ -169,8 +169,6 @@ class Events extends LitElement {
   );
 
   render() {
-    console.log(this.listEvents);
-
     return html`
       <style>
         * {

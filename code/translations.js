@@ -201,4 +201,14 @@ export const t = {
     en: "Details",
     de: "Einzelheiten",
   },
+  from: {
+    it: "Dal",
+    en: "From",
+    de: "Von",
+  },
+  to: {
+    it: "al",
+    en: "to",
+    de: "zu",
+  },
 };

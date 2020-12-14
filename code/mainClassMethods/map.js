@@ -70,12 +70,7 @@ export function drawUserOnMap() {
 export async function drawEventsOnMap() {
   const events_layer_array = [];
 
-  const events = await requestTourismEvents(
-    this.filters,
-    this.currentLocation
-  );
-
-  console.log(events);
+  const events = await requestTourismEvents(this.filters, this.currentLocation);
 
   events.map((event) => {
     const marker_position = getLatLongFromStationDetail({

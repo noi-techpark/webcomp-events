@@ -6,25 +6,17 @@ import {
 } from "./config";
 
 const createUrlFilters = (filters, currentLocation) => {
-  let categorycodefilter = "";
-  if (filters.categories.length) {
-    categorycodefilter = `&categorycodefilter=${filters.categories.toString()}`;
+  let dateFromFilter = "";
+  if (filters.dateFrom.length) {
+    dateFromFilter = `&begindate=${filters.dateFrom}`;
   }
-  let facilityCodesCreditCard = "";
-  if (filters.facilityCodesCreditCard.length) {
-    facilityCodesCreditCard = `&facilitycodefilter=${filters.facilityCodesCreditCard.toString()}`;
+  let dateToFilter = "";
+  if (filters.dateTo.length) {
+    dateToFilter = `&enddate=${filters.dateTo}`;
   }
-  let facilityCodesFeatures = "";
-  if (filters.facilityCodesFeatures.length) {
-    facilityCodesFeatures = `&facilitycodefilter=${filters.facilityCodesFeatures.toString()}`;
-  }
-  let facilityCodesQuality = "";
-  if (filters.facilityCodesQuality.length) {
-    facilityCodesQuality = `&facilitycodefilter=${filters.facilityCodesQuality.toString()}`;
-  }
-  let facilityCodesCuisine = "";
-  if (filters.facilityCodesCuisine.length) {
-    facilityCodesCuisine = `&facilitycodefilter=${filters.facilityCodesCuisine.toString()}`;
+  let topicFilter = "";
+  if (filters.topic !== "") {
+    topicFilter = `&topicfilter=${filters.topic}`;
   }
   let radius = "";
   if (filters.radius && filters.radius !== "0") {
@@ -32,7 +24,7 @@ const createUrlFilters = (filters, currentLocation) => {
       currentLocation.lng
     }&radius=${parseInt(filters.radius) * 1000}`;
   }
-  return `${categorycodefilter}${facilityCodesCreditCard}${facilityCodesFeatures}${facilityCodesQuality}${facilityCodesCuisine}${radius}`;
+  return `${dateFromFilter}${dateToFilter}${topicFilter}${radius}`;
 };
 
 export const requestTourismEvents = async (filters, currentLocation) => {

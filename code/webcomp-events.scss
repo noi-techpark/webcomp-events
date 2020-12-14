@@ -145,6 +145,22 @@
     .filters__divider {
       margin-top: 16px;
     }
+    .filter__text_with_inputs {
+      @include MixinParagraphRegular;
+      margin: 16px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      input {
+        height: 40px;
+        width: 122px;
+        font-family: var(--w-c-font-family);
+        &::placeholder {
+          font-family: var(--w-c-font-family);
+        }
+      }
+    }
   }
 }
 
