@@ -5,39 +5,19 @@
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
   overflow: hidden;
-  @media only screen and (min-width: 768px) {
-    // width: var(--width);
-    // height: var(--height);
-  }
 }
 
-#map {
-  width: 100vw;
-  height: 99vh;
+#map,
+#list {
   z-index: 1;
-
-  @media only screen and (min-width: 320px) {
-    // width: 100%;
-    // height: 100vh;
-    // &.closed {
-    //   height: var(--height);
-    // }
-  }
-
   @media only screen and (min-width: 992px) {
     width: var(--width);
     height: var(--height);
-    // &.closed {
-    //   height: var(--height);
-    // }
   }
 }
 
 #list {
-  width: 100vw;
-  height: 99vh;
   z-index: 1;
-
   @media only screen and (min-width: 992px) {
     width: var(--width);
     height: var(--height);
@@ -51,12 +31,41 @@
   }
 }
 
+.mobile {
+  &.MODE__mobile__open {
+    #map,
+    #list {
+      width: 100vw;
+      height: calc(100vh - 80px);
+    }
+  }
+  &.MODE__mobile__closed {
+    #map,
+    #list {
+      width: 100vw;
+      height: 300px;
+    }
+    .MODE__mobile__closed__overlay {
+      background: rgba(255, 255, 255, 0.64);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
 .events__sideBar {
   position: absolute;
   top: 0;
   left: 0;
   max-height: 99vh;
-  z-index: 2;
+  z-index: 3;
   overflow: hidden;
   width: 100%;
   @media only screen and (min-width: 768px) {
@@ -168,7 +177,7 @@
   display: inline;
   position: absolute;
   right: 16px;
-  z-index: 3;
+  z-index: 2;
   top: 80px;
 
   &.big_margin {

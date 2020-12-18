@@ -1,3 +1,4 @@
+import minimizeImage from "../assets/minimize.svg";
 import { html } from "lit-html";
 import expandImage from "../assets/expand.svg";
 import findPositionImage from "../assets/find-position.svg";
@@ -39,12 +40,14 @@ export function render__mapControls() {
 
   return html`
     <div class="map_controls">
-      ${isMobile() && false
+      ${this.isMobile
         ? html`<div class="mt-16px">
             <wc-button
-              @click="${() => {}}"
+              @click="${() => {
+                this.mobileOpen = !this.mobileOpen;
+              }}"
               type="square"
-              .image="${expandImage}"
+              .image="${this.mobileOpen ? minimizeImage : expandImage}"
             ></wc-button>
           </div>`
         : ""}
@@ -79,14 +82,3 @@ export function render__mapControls() {
     </div>
   `;
 }
-
-/* <div
-        @click=${() => {
-          this.handleFullScreenMap();
-        }}
-        class=${`map_controls__button ${
-          isMobile() && !this.mobile_open ? "" : `d-none`
-        }`}
-      >
-        <img src=${expandImage} alt="" />
-      </div> */

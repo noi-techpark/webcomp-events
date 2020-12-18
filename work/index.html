@@ -31,6 +31,25 @@
       </div>
     </div>
 
+    <div class="p-5"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <webcomp-events
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            modality="map"
+          ></webcomp-events>
+        </div>
+      </div>
+    </div>
+
     <script src="/scripts/webcomp-events.js"></script>
   </body>
 </html>

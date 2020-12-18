@@ -1,4 +1,14 @@
 export const t = {
+  openTheMap: {
+    it: "Apri la mappa",
+    en: "Open the map",
+    de: "Öffnen Sie die Karte",
+  },
+  openTheList: {
+    it: "Apri la lista",
+    en: "Open the list",
+    de: "Öffnen Sie die Liste",
+  },
   events: {
     it: "Eventi",
     en: "Events",

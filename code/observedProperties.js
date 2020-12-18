@@ -7,6 +7,8 @@ export const observedProperties = {
   modality: { type: String },
 
   isLoading: { type: Boolean },
+  mobileOpen: { type: Boolean },
+  isMobile: { type: Boolean },
 
   hereMapsQuery: { type: String },
   hereMapsPlacesFound: { type: Array },
