@@ -1,0 +1,3 @@
+@mixin MixinFontFamily {
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+}

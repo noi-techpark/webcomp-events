@@ -1,0 +1,18 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+
+span {
+  display: block;
+  width: calc(100% - 2px);
+
+  &.line {
+    border: 1px solid $gray-300;
+  }
+  &.text {
+    @include MixinFontFamily;
+    @include MixinCaption;
+    color: $gray-600;
+    text-transform: uppercase;
+  }
+}

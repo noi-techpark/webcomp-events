@@ -1,0 +1,55 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+
+.checkBox {
+  @include MixinFontFamily;
+  @include MixinParagraphRegular;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom: 4px;
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: $white;
+    border: 2px solid $gray-500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    & ~ .checkmark {
+      img {
+        display: none;
+      }
+    }
+
+    &:checked {
+      & ~ .checkmark {
+        background-color: $green-200;
+        border: 2px solid $green-200;
+
+        img {
+          display: block;
+        }
+      }
+    }
+  }
+}

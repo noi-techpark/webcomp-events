@@ -1,0 +1,45 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+@import '../baseline/elevations.scss';
+
+.sideModalTabs {
+  @include MixinFontFamily;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8px 8px 0 8px;
+
+  .sideModalTabs__tab {
+    &:hover {
+      p {
+        color: $black;
+      }
+    }
+
+    p {
+      margin: 0;
+      margin-bottom: 4px;
+      color: $gray-600;
+      cursor: pointer;
+      @include MixinCaption;
+      @media only screen and (min-width: 768px) {
+        @include MixinParagraphRegular;
+      }
+    }
+
+    .sideModalTabs__tab__underline {
+      height: 2px;
+      border-bottom: 2px solid transparent;
+    }
+
+    &.active {
+      p {
+        color: $green-200;
+      }
+      .sideModalTabs__tab__underline {
+        border-bottom: 2px solid $green-200;
+      }
+    }
+  }
+}

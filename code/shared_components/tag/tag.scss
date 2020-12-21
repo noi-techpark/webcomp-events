@@ -1,0 +1,34 @@
+@import "../baseline/colors.scss";
+@import "../baseline/fonts.scss";
+
+span {
+  @include MixinFontFamily;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+
+  img {
+    margin-left: 4px;
+  }
+
+  &.primary {
+    color: white;
+    background: $green-200;
+    border-color: $green-200;
+  }
+
+  &.secondary {
+    color: $green-200;
+    background: $green-50;
+    border-color: $green-50;
+  }
+
+  &.outline {
+    color: $black;
+    border-color: $gray-300;
+  }
+}

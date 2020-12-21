@@ -1,0 +1,82 @@
+@import '../baseline/colors.scss';
+@import '../baseline/fonts.scss';
+@import '../baseline/typography.scss';
+@import '../baseline/elevations.scss';
+
+.dropdown {
+  @include MixinFontFamily;
+  position: relative;
+  width: 100%;
+  background-color: $white;
+
+  .dropdown_input {
+    @include MixinParagraphRegular;
+    width: 100%;
+    height: 40px;
+    border: 1px solid $gray-500;
+    display: flex;
+    align-items: center;
+    color: $gray-500;
+    justify-content: space-between;
+    .dropdown_input__text {
+      margin: 0 8px;
+    }
+    .dropdown_input__chevronContainer {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+    }
+  }
+
+  .dropdown_menu {
+    @include Elevation3;
+    border: 1px solid $gray-300;
+    background-color: $white;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1;
+    display: none;
+
+    .dropdown_menu__list_element {
+      width: 100%;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $gray-300;
+      }
+
+      &.empty {
+        cursor: not-allowed;
+      }
+
+      p {
+        @include MixinParagraphRegular;
+        margin: 0 8px;
+        &.selected {
+          color: $green-200;
+        }
+      }
+    }
+  }
+
+  &.hasValue {
+    .dropdown_input {
+      color: $black;
+    }
+  }
+
+  &.open {
+    .dropdown_input {
+      @include Elevation3;
+    }
+
+    .dropdown_menu {
+      display: block;
+    }
+  }
+}

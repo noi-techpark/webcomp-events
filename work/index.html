@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Events</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <webcomp-events
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            modality="list"
+          ></webcomp-events>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-5"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <webcomp-events
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            modality="map"
+          ></webcomp-events>
+        </div>
+      </div>
+    </div>
+
+    <script src="/scripts/webcomp-events.js"></script>
+  </body>
+</html>
