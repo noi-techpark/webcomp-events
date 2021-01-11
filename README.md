@@ -1,46 +1,81 @@
-Replace all `ToDo` notes in this file and adjust also the following files:
-- package.json:
-    - Adjust the general parts like name, description, ...
-    - Adjust the three scripts `npm run start`, `npm run build` and `npm run test`
-- wcs-manifest.json:
-    - Adjust the general parts like title, description, ...
-    - Adjust the configuration part with all possible configuration options (https://webcomponents.opendatahub.bz.it/getting-started)
+# Events - Web component 
 
-# ToDo: Project Name
-
-ToDo: Description of the project.
+A web component that shows the events stored in the Open Data Hub.
 
 ## Table of contents
 
 - [Usage](#usage)
 - [Gettings started](#getting-started)
-- [Tests and linting](#tests-and-linting)
 - [Deployment](#deployment)
 - [Docker environment](#docker-environment)
 - [Information](#information)
+<!-- - [Tests and linting](#tests-and-linting) -->
 
 ## Usage
 
-ToDo: Include the webcompscript file `dist/webcomp-boilerplate.min.js` in your HTML and define the web component like this:
-
 ```html
-<webcomp-boilerplate xxx="test" yyy="2"></webcomp-boilerplate>
+ <webcomp-events
+    width="100%"
+    height="500px"
+    fontFamily="Arial"
+    language="it"
+    mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+    currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+    modality="list"
+></webcomp-events>
 ```
 
 ### Attributes
 
-#### xxxx
+#### width
 
-The description of the parameter xxx.
+Give a fixed width to the component. Works only from desktop up. You can use whatever size unit you want.
 
-Type: string
-Options: "test", "123"
+Examples: `"100%" or "200px"`
 
-#### yyy
+#### height
 
-The description of the parameter yyy.
+Give a fixed height to the component. Works only from desktop up. You can use whatever size unit you want.
 
-Type: int
+Example: `"500px" or "100%"`
+
+#### fontFamily
+
+Set the typeface.
+
+Example: `"Arial"`
+
+#### language
+
+Set the default and starting language.
+
+Example: `"en" or "de" or "it"`
+
+#### mapAttribution
+
+Set the acknowledgement for the map tiles provider.
+
+Example: `'Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
+
+#### currentLocation
+
+Set the starting point position on the map.
+
+Example: `'{ "lat": 46.31, "lng": 11.26 }'`
+
+#### tiles-url
+
+Set the URL of the API that provides the tiles.
+
+Example: `"https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+
+#### modality
+
+Set the default and starting value for the modality of the widget.
+
+Example: `"list" or "map"`
+
 
 ## Getting started
 
@@ -51,31 +86,41 @@ on your local machine for development and testing purposes.
 
 To build the project, the following prerequisites must be met:
 
-- ToDo: Check the prerequisites
-- Node 12 / NPM 6
+- Node 14.15.4 / Yarn 1.22.10
 
-For a ready to use Docker environment with all prerequisites already installed and prepared, you can check out the [Docker environment](#docker-environment) section.
+<!-- For a ready to use Docker environment with all prerequisites already installed and prepared, you can check out the [Docker environment](#docker-environment) section. -->
 
 ### Source code
 
 Get a copy of the repository:
 
 ```bash
-ToDo: git clone https://github.com/noi-techpark/project-name.git
+git clone git@github.com:noi-techpark/webcomp-events.git
 ```
 
 Change directory:
 
 ```bash
-ToDo: cd project-name/
+cd webcomp-events/
 ```
+
+### .env
+
+Create a `.env` file in the main directory.
+Fill it with this content:
+
+```
+TILES_API_KEY=YourKey
+```
+
+Replace `YourKey` with your API token to use the tiles and the search bar.
 
 ### Dependencies
 
 Download all dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Build
@@ -83,29 +128,31 @@ npm install
 Build and start the project:
 
 ```bash
-npm run start
+yarn start
 ```
 
 The application will be served and can be accessed at [http://localhost:8080](http://localhost:8080).
 
-## Tests and linting
+<!-- ## Tests and linting
 
 The tests and the linting can be executed with the following commands:
 
 ```bash
 npm run test
 npm run lint
-```
+``` -->
 
 ## Deployment
 
 To create the distributable files, execute the following command:
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## Docker environment
+
+NOT IMPLEMENTED
 
 For the project a Docker environment is already prepared and ready to use with all necessary prerequisites.
 
