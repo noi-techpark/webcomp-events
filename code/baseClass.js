@@ -1,7 +1,7 @@
 import { LitElement } from "lit-element";
 import {
+  get_system_language,
   isMobile,
-  LANGUAGES,
   STATE_DEFAULT_FILTERS,
   STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN,
   STATE_MODALITIES,
@@ -14,7 +14,7 @@ export class BaseEvents extends LitElement {
     this.width = "100%";
     this.fontFamily = "";
     this.mapAttribution = "";
-    this.language = LANGUAGES.EN;
+    this.language = get_system_language();
     this.modality = STATE_MODALITIES.map;
     this.pageSize = 10;
 
