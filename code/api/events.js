@@ -49,11 +49,12 @@ export const requestTourismEventsPaginated = async (
   filters,
   currentLocation,
   pageNumber,
+  pageSize,
   language
 ) => {
   try {
     const request = await fetch(
-      `${BASE_PATH_TOURISM_EVENT}?active=true&odhactive=true&language=${language}&fields=Id,Detail,CategoryCodes,LocationInfo&pagenumber=${pageNumber}&pagesize=10${createUrlFilters(
+      `${BASE_PATH_TOURISM_EVENT}?active=true&odhactive=true&language=${language}&fields=Id,Detail,CategoryCodes,LocationInfo&pagenumber=${pageNumber}&pagesize=${pageSize}${createUrlFilters(
         filters,
         currentLocation
       )}`

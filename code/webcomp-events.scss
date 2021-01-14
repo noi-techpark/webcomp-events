@@ -5,6 +5,10 @@
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
   overflow: hidden;
+  @media only screen and (min-width: 992px) {
+    width: var(--width);
+    height: var(--height);
+  }
 }
 
 #map,
@@ -173,6 +177,12 @@
   }
 }
 
+.isSmallWidth {
+  .events__sideBar {
+    width: calc(80% - 32px);
+  }
+}
+
 .events__language_picker {
   display: inline;
   position: absolute;
@@ -261,6 +271,28 @@
       &.header {
         @include MixinCaption;
         color: $gray-600;
+      }
+    }
+  }
+}
+
+.isSmallWidth {
+  .events__list {
+    .events__list_content {
+      .events__list_content_row {
+        > div {
+          &:nth-child(1) {
+            width: 50%;
+          }
+          &:nth-child(2),
+          &:nth-child(3),
+          &:nth-child(4) {
+            display: none;
+          }
+          &:nth-child(5) {
+            width: auto;
+          }
+        }
       }
     }
   }
