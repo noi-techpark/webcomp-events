@@ -90,8 +90,6 @@ export async function drawEventsOnMap() {
         Id: event.Id,
       });
       if (details) {
-        console.log(details);
-
         this.currentEvent = {
           ...details,
         };

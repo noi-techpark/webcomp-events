@@ -24,6 +24,7 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
     tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
     modality="list"
+    pageSize="5"
 ></webcomp-events>
 ```
 
@@ -76,6 +77,12 @@ Example: `"https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.
 Set the default and starting value for the modality of the widget.
 
 Example: `"list" or "map"`
+
+#### pageSize
+
+Set the default and starting value for the modality of the widget. Default value is 10.
+
+Example: `"5"`
 
 
 ## Getting started

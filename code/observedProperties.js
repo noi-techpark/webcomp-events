@@ -14,6 +14,7 @@ export const observedProperties = {
   hereMapsPlacesFound: { type: Array },
   mapAttribution: { type: String },
 
+  pageSize: { type: Number },
   listEvents: { type: Array },
   listEventsCurrentPage: { type: Number },
   currentEvent: { type: Object },
