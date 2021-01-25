@@ -23,9 +23,7 @@
   "searchTags": ["events"],
   "dist": {
     "basePath": "dist",
-    "files": [
-      "webcomp-events.js"
-    ]
+    "files": ["webcomp-events.js"]
   },
   "configuration": {
     "tagName": "webcomp-events",
@@ -36,7 +34,7 @@
         "label": "Width of the component as css property (es: '500px' or '100%')",
         "required": false,
         "options": {
-            "default": "100%"
+          "default": "100%"
         }
       },
       {
@@ -45,7 +43,7 @@
         "label": "Height of the component as css property (es: '500px' or '100%')",
         "required": false,
         "options": {
-            "default": "500px"
+          "default": "500px"
         }
       },
       {
@@ -102,6 +100,15 @@
         "required": true,
         "options": {
           "default": "https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+        }
+      },
+      {
+        "key": "filterRadius",
+        "type": "text",
+        "label": "The radius expressed in kilometers with which to filter events. Default value is 0.",
+        "required": true,
+        "options": {
+          "default": "5"
         }
       }
     ]

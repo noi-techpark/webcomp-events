@@ -84,6 +84,12 @@ Set the default and starting value for the modality of the widget. Default value
 
 Example: `"5"`
 
+#### filterRadius
+
+The radius expressed in kilometers with which to filter events. Default value is 0.
+
+Example: `"5"`
+
 
 ## Getting started
 
