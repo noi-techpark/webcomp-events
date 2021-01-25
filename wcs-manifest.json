@@ -1,10 +1,9 @@
 {
-  "title": "Webcomponent Boilerplate",
-  "description": "A webcomponent boilerplate that can be used to build your own boilerplate.",
-  "descriptionAbstract": "A webcomponent boilerplate",
-  "license": "AGPL-3.0",
-  "repositoryUrl": "https://github.com/noi-techpark/webcomp-boilerplate",
-  "authors": [
+  "title": "Events Webcomponent",
+  "description": "This web component shows all events provided by the Open Data Hub.",
+  "descriptionAbstract": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location.",
+  "license": "AGPL-3.0-or-later",
+  "copyrightHolders": [
     {
       "name": "NOI",
       "email": "info@noi.bz.it",
@@ -12,16 +11,99 @@
       "organizationUrl": "https://noi.bz.it"
     }
   ],
-  "image": null,
-  "searchTags": [],
+  "authors": [
+    {
+      "name": "Belka",
+      "email": "hello@belkadigital.com",
+      "organization": "Belka",
+      "organizationUrl": "https://belkadigital.com/"
+    }
+  ],
+  "image": "wcs-logo.png",
+  "searchTags": ["events"],
   "dist": {
     "basePath": "dist",
     "files": [
-      "app.min.js"
+      "webcomp-events.js"
     ]
   },
   "configuration": {
-    "tagName": "webcomponent-boilerplate",
-    "options": []
+    "tagName": "webcomp-events",
+    "options": [
+      {
+        "key": "width",
+        "type": "text",
+        "label": "Width of the component as css property (es: '500px' or '100%')",
+        "required": false,
+        "options": {
+            "default": "100%"
+        }
+      },
+      {
+        "key": "height",
+        "type": "text",
+        "label": "Height of the component as css property (es: '500px' or '100%')",
+        "required": false,
+        "options": {
+            "default": "500px"
+        }
+      },
+      {
+        "key": "language",
+        "type": "select",
+        "label": "Two letter key for the language to be used, if omitted the widget will use the language of the browser (navigator.language[?s]) if supported. Fallback is `en`",
+        "required": false,
+        "options": {
+          "values": ["en", "de", "it"],
+          "default": "en"
+        }
+      },
+      {
+        "key": "modality",
+        "type": "select",
+        "label": "Visualization of the data",
+        "required": true,
+        "options": {
+          "values": ["map", "list"],
+          "default": "map"
+        }
+      },
+      {
+        "key": "fontFamily",
+        "type": "text",
+        "label": "Main font family",
+        "required": false,
+        "options": {
+          "default": "Arial"
+        }
+      },
+      {
+        "key": "currentLocation",
+        "type": "text",
+        "label": "Coordinates of the current location in the following format: `{ 'lat': 46.31, 'lng': 11.26 }`",
+        "required": true,
+        "options": {
+          "default": "{ 'lat': 46.31, 'lng': 11.26 }"
+        }
+      },
+      {
+        "key": "mapAttribution",
+        "type": "text",
+        "label": "Attribution text for the tiles, can contain html (without double-quotes)",
+        "required": true,
+        "options": {
+          "default": "Map Tiles &copy; <a href='http://developer.here.com'>HERE</a>"
+        }
+      },
+      {
+        "key": "tiles-url",
+        "type": "text",
+        "label": "Url for the tiles, see https://leafletjs.com/reference-1.6.0.html#tilelayer",
+        "required": true,
+        "options": {
+          "default": "https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+        }
+      }
+    ]
   }
 }
