@@ -92,9 +92,7 @@ Example: `"5"`
 
 #### disableEventDirections
 
-If set to `"true"` the road directions are hidden. Default is `"false"`
-
-Example: `"true"`
+If set the road directions are hidden.`
 
 
 ## Getting started
