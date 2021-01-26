@@ -62,7 +62,7 @@ class Events extends BaseEvents {
       "resize",
       _debounce(this.handleWindowResize.bind(this), 150)
     );
-    console.log(this.filterRadius);
+
     if (this.filterRadius && parseFloat(this.filterRadius)) {
       this.filters = {
         ...this.filters,
