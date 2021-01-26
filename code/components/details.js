@@ -27,10 +27,15 @@ export function render_details() {
         .type="title"
         .tTitle="${Title}"
         .tLinkedTagText="${topicText}"
-        .tOptionalLink="${{
-          text: t["directions"][this.language],
-          url: `http://www.google.com/maps/place/${Latitude},${Longitude}`,
-        }}"
+        .tOptionalLink="${!this.disableParkingDirections
+          ? {
+              text: t["directions"][this.language],
+              url: `http://www.google.com/maps/place/${Latitude},${Longitude}`,
+            }
+          : {
+              text: "",
+              url: "",
+            }}"
         .closeModalAction="${() => {
           this.detailsOpen = false;
         }}"

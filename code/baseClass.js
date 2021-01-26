@@ -17,6 +17,8 @@ export class BaseEvents extends LitElement {
     this.language = get_system_language();
     this.modality = STATE_MODALITIES.map;
     this.pageSize = 10;
+    this.disableParkingDirections = false;
+
 
     this.isLoading = true;
     this.mobileOpen = false;
