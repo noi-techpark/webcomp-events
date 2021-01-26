@@ -5,7 +5,7 @@ export const observedProperties = {
   language: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
   modality: { type: String },
-  disableParkingDirections: { type: Boolean },
+  disableEventDirections: { type: Boolean },
 
   isLoading: { type: Boolean },
   mobileOpen: { type: Boolean },

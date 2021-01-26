@@ -112,7 +112,7 @@
         }
       },
       {
-        "key": "disableParkingDirections",
+        "key": "disableEventDirections",
         "type": "text",
         "label": "If set to \"true\" the road directions are hidden. Default is \"false\"",
         "required": false,

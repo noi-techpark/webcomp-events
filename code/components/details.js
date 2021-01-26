@@ -27,7 +27,7 @@ export function render_details() {
         .type="title"
         .tTitle="${Title}"
         .tLinkedTagText="${topicText}"
-        .tOptionalLink="${!this.disableParkingDirections
+        .tOptionalLink="${!this.disableEventDirections
           ? {
               text: t["directions"][this.language],
               url: `http://www.google.com/maps/place/${Latitude},${Longitude}`,

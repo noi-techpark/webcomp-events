@@ -90,7 +90,7 @@ The radius expressed in kilometers with which to filter events. Default value is
 
 Example: `"5"`
 
-#### disableParkingDirections
+#### disableEventDirections
 
 If set to `"true"` the road directions are hidden. Default is `"false"`
 
