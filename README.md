@@ -92,7 +92,7 @@ Example: `"5"`
 
 #### disableEventDirections
 
-If set the road directions are hidden.`
+If set the road directions are hidden.
 
 
 ## Getting started
