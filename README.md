@@ -25,7 +25,8 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
     modality="list"
     pageSize="5"
-></webcomp-events>
+    categoriesFilter="[8,16]">
+</webcomp-events>
 ```
 
 ### Attributes
