@@ -69,6 +69,12 @@ class Events extends BaseEvents {
         radius: this.filterRadius,
       };
     }
+    if (this.categoriesFilter && this.categoriesFilter.length) {
+      this.filters = {
+        ...this.filters,
+        topic: this.categoriesFilter,
+      };
+    }
   }
   disconnectedCallback() {
     window.removeEventListener("resize", this.handleWindowResize.bind(this));

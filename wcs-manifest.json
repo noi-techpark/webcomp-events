@@ -119,6 +119,15 @@
         "options": {
           "default": ""
         }
+      },
+      {
+        "key": "categoriesFilter",
+        "type": "text",
+        "label": "If set, all the gastronomies are filtered by the bitmask values in the array.",
+        "required": false,
+        "options": {
+          "default": "[]"
+        }
       }
     ]
   }

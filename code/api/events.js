@@ -1,7 +1,7 @@
 import {
   BASE_PATH_TOURISM_EVENT,
   BASE_PATH_TOURISM_EVENTTOPICS,
-  BASE_PATH_TOURISM_EVENTTYPES,
+  // BASE_PATH_TOURISM_EVENTTYPES,
   BASE_PATH_TOURISM_EVENT_REDUCED,
 } from "./config";
 
@@ -10,20 +10,27 @@ const createUrlFilters = (filters, currentLocation) => {
   if (filters.dateFrom.length) {
     dateFromFilter = `&begindate=${filters.dateFrom}`;
   }
+
   let dateToFilter = "";
   if (filters.dateTo.length) {
     dateToFilter = `&enddate=${filters.dateTo}`;
   }
+
   let topicFilter = "";
-  if (filters.topic !== "") {
-    topicFilter = `&topicfilter=${filters.topic}`;
+  if (filters.topic.length) {
+    const bitmaskSum = filters.topic.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    topicFilter = `&topicfilter=${bitmaskSum}`;
   }
+
   let radius = "";
   if (filters.radius && filters.radius !== "0") {
     radius = `&latitude=${currentLocation.lat}&longitude=${
       currentLocation.lng
     }&radius=${parseInt(filters.radius) * 1000}`;
   }
+
   return `${dateFromFilter}${dateToFilter}${topicFilter}${radius}`;
 };
 

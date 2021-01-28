@@ -15,7 +15,7 @@ export const STATE_DEFAULT_FILTERS = {
   radius: "0",
   dateFrom: "",
   dateTo: "",
-  topic: "",
+  topic: [], // Array of numbers
 };
 
 export const STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN = {};
@@ -63,7 +63,7 @@ export function countFilters(filters) {
     filtersNumber = filtersNumber + 1;
   }
 
-  if (filters.topic !== "") {
+  if (filters.topic.length) {
     filtersNumber = filtersNumber + 1;
   }
 

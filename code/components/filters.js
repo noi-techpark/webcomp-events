@@ -77,12 +77,18 @@ export function render_filters() {
         ${this.listEventsTopics.map((o) => {
           return html`
             <wc-checkbox
-              .value="${o.Bitmask === parseInt(this.filters.topic)}"
-              .action="${({ value, name }) => {
-                if (value) {
-                  this.filters = { ...this.filters, topic: o.Bitmask };
+              .value="${this.filters.topic.includes(o.Bitmask)}"
+              .action="${() => {
+                if (this.filters.topic.includes(o.Bitmask)) {
+                  this.filters = {
+                    ...this.filters,
+                    topic: this.filters.topic.filter((c) => c !== o.Bitmask),
+                  };
                 } else {
-                  this.filters = { ...this.filters, topic: "" };
+                  this.filters = {
+                    ...this.filters,
+                    topic: [...this.filters.topic, o.Bitmask],
+                  };
                 }
               }}"
               .label="${o.TypeDesc[this.language]}"
