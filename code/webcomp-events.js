@@ -62,6 +62,19 @@ class Events extends BaseEvents {
       "resize",
       _debounce(this.handleWindowResize.bind(this), 150)
     );
+
+    if (this.filterRadius && parseFloat(this.filterRadius)) {
+      this.filters = {
+        ...this.filters,
+        radius: this.filterRadius,
+      };
+    }
+    if (this.categoriesFilter && this.categoriesFilter.length) {
+      this.filters = {
+        ...this.filters,
+        topic: this.categoriesFilter,
+      };
+    }
   }
   disconnectedCallback() {
     window.removeEventListener("resize", this.handleWindowResize.bind(this));

@@ -25,7 +25,8 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
     modality="list"
     pageSize="5"
-></webcomp-events>
+    categoriesFilter="[8,16]">
+</webcomp-events>
 ```
 
 ### Attributes
@@ -83,6 +84,22 @@ Example: `"list" or "map"`
 Set the default and starting value for the modality of the widget. Default value is 10.
 
 Example: `"5"`
+
+#### filterRadius
+
+The radius expressed in kilometers with which to filter events. Default value is 0.
+
+Example: `"5"`
+
+#### disableEventDirections
+
+If set the road directions are hidden.
+
+#### categoriesFilter
+
+If set, all the gastronomies are filtered by the bitmask values in the array.
+
+Example: `"[8,16]"`
 
 
 ## Getting started

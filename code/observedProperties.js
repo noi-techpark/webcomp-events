@@ -5,6 +5,8 @@ export const observedProperties = {
   language: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
   modality: { type: String },
+  disableEventDirections: { type: Boolean },
+  categoriesFilter: { type: Array },
 
   isLoading: { type: Boolean },
   mobileOpen: { type: Boolean },
@@ -26,6 +28,7 @@ export const observedProperties = {
 
   // Filters
   filters: { type: Object },
+  filterRadius: { type: String },
 
   filtersAccordionOpen: { type: Object },
 };
