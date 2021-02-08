@@ -113,11 +113,11 @@
       },
       {
         "key": "disableEventDirections",
-        "type": "bool",
+        "type": "null",
         "label": "If set the road directions are hidden.",
         "required": false,
         "options": {
-          "default": true
+          "default": false
         }
       },
       {
