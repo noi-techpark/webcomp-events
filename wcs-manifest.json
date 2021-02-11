@@ -1,7 +1,7 @@
 {
   "title": "Events Webcomponent",
-  "description": "This web component shows all events provided by the Open Data Hub.",
-  "descriptionAbstract": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location.",
+  "description": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location.",
+  "descriptionAbstract": "This web component shows all events provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
   "copyrightHolders": [
     {
