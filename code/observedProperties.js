@@ -13,7 +13,7 @@ export const observedProperties = {
   isMobile: { type: Boolean },
 
   hereMapsQuery: { type: String },
-  hereMapsPlacesFound: { type: Array },
+  searchPlacesFound: { type: Array },
   mapAttribution: { type: String },
 
   pageSize: { type: Number },

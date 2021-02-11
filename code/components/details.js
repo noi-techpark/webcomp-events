@@ -54,14 +54,14 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["description"][this.language]}"
-            .text="${BaseText}"
+            .text="${BaseText || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${LocationInfo.TvInfo.Name[this.language]
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["where"][this.language]}"
-            .text="${LocationInfo.TvInfo.Name[this.language]}"
+            .text="${LocationInfo.TvInfo.Name[this.language] || "---"}"
           ></wc-sidemodal-row>`
         : null}
     </div>
@@ -101,7 +101,7 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["organizer"][this.language]}"
-            .text="${OrganizerInfos[this.language].CompanyName}"
+            .text="${OrganizerInfos[this.language].CompanyName || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${OrganizerInfos[this.language].Address ||
@@ -122,7 +122,7 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["place"][this.language]}"
-            .text="${OrganizerInfos[this.language].ZipCode}"
+            .text="${OrganizerInfos[this.language].ZipCode || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${OrganizerInfos[this.language].Phonenumber ||
@@ -138,14 +138,14 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["eMail"][this.language]}"
-            .text="${OrganizerInfos[this.language].Email}"
+            .text="${OrganizerInfos[this.language].Email || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${OrganizerInfos[this.language].Url
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["web"][this.language]}"
-            .text="${OrganizerInfos[this.language].Url}"
+            .text="${OrganizerInfos[this.language].Url || "---"}"
           ></wc-sidemodal-row>`
         : null}
     </div>
@@ -162,21 +162,22 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["organizer"][this.language]}"
-            .text="${CompanyName}"
+            .text="${CompanyName || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${Address || City || CountryName || CountryCode
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["address"][this.language]}"
-            .text="${Address} ${City} ${CountryName} ${CountryCode}"
+            .text="${Address || ""} ${City || ""} ${CountryName ||
+            ""} ${CountryCode || ""}"
           ></wc-sidemodal-row>`
         : null}
       ${ZipCode
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["place"][this.language]}"
-            .text="${ZipCode}"
+            .text="${ZipCode || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${Phonenumber || Faxnumber
@@ -190,14 +191,14 @@ export function render_details() {
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["eMail"][this.language]}"
-            .text="${Email}"
+            .text="${Email || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${Url
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["web"][this.language]}"
-            .text="${Url}"
+            .text="${Url || "---"}"
           ></wc-sidemodal-row>`
         : null}
     </div>
