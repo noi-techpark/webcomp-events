@@ -47,12 +47,12 @@ export const t = {
   search: {
     it: "Cerca",
     en: "Seach",
-    de: "Seach",
+    de: "Suche",
   },
   my_location: {
     it: "La mia posizione",
     en: "My location",
-    de: "My location",
+    de: "Mein Standort",
   },
   tag__free: {
     it: "Libero",
@@ -172,7 +172,37 @@ export const t = {
   },
   facilityCodesCuisine: {
     it: "Facility Codes Cuisine",
+    en: "Facility Codes Cuisine", facilityCodesCreditCard: {
+    it: "Facility Codes CreditCard",
+    en: "Facility Codes CreditCard",
+    de: "Facility Codes CreditCard",
+  },
+  facilityCodesFeatures: {
+    it: "Facility Codes Features",
+    en: "Facility Codes Features",
+    de: "Facility Codes Features",
+  },
+  facilityCodesQuality: {
+    it: "Facility Codes Quality",
+    en: "Facility Codes Quality",
+    de: "Facility Codes Quality",
+  },
+  facilityCodesCuisine: {
+    it: "Facility Codes Cuisine",
     en: "Facility Codes Cuisine",
+    de: "Facility Codes Cuisine",
+  },
+  facilityCodesCeremony: {
+    it: "Facility Codes Ceremony",
+    en: "Facility Codes Ceremony",
+    de: "Facility Codes Ceremony",
+  },
+  // List
+  shortname: {
+    it: "SHORTNAME",
+    en: "SHORTNAME",
+    de: "SHORTNAME",
+  },
     de: "Facility Codes Cuisine",
   },
   facilityCodesCeremony: {
