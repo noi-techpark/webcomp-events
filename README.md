@@ -20,9 +20,9 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     height="500px"
     fontFamily="Arial"
     language="it"
-    mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+    mapAttribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
-    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+    tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     modality="list"
     pageSize="5"
     categoriesFilter="[8,16]">
@@ -59,7 +59,7 @@ Example: `"en" or "de" or "it"`
 
 Set the acknowledgement for the map tiles provider.
 
-Example: `'Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
+Example: `'&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'`
 
 #### currentLocation
 
@@ -71,7 +71,7 @@ Example: `'{ "lat": 46.31, "lng": 11.26 }'`
 
 Set the URL of the API that provides the tiles.
 
-Example: `"https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+Example: `"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"`
 
 #### modality
 
@@ -137,7 +137,7 @@ Create a `.env` file in the main directory.
 Fill it with this content:
 
 ```
-TILES_API_KEY=YourKey
+HEREMAP_API_KEY=YourKey
 ```
 
 Replace `YourKey` with your API token to use the tiles and the search bar.

@@ -2,12 +2,12 @@ export const t = {
   openTheMap: {
     it: "Apri la mappa",
     en: "Open the map",
-    de: "Öffnen Sie die Karte",
+    de: "Öffne die Karte",
   },
   openTheList: {
     it: "Apri la lista",
     en: "Open the list",
-    de: "Öffnen Sie die Liste",
+    de: "Öffne die Liste",
   },
   events: {
     it: "Eventi",
@@ -42,7 +42,7 @@ export const t = {
   endDate: {
     it: "Data di fine",
     en: "End date",
-    de: "Endtermin",
+    de: "Enddatum",
   },
   search: {
     it: "Cerca",
@@ -73,7 +73,7 @@ export const t = {
   cancelFilters: {
     it: "Annulla filtri",
     en: "Cancel filters",
-    de: "Filter abbrechen",
+    de: "Filter verwerfen",
   },
   description: {
     it: "Descrizione",
@@ -83,7 +83,7 @@ export const t = {
   season: {
     it: "Stagione",
     en: "Season",
-    de: "Jahreszeit",
+    de: "Saison",
   },
   category: {
     it: "Categoria",
@@ -172,23 +172,6 @@ export const t = {
   },
   facilityCodesCuisine: {
     it: "Facility Codes Cuisine",
-    en: "Facility Codes Cuisine", facilityCodesCreditCard: {
-    it: "Facility Codes CreditCard",
-    en: "Facility Codes CreditCard",
-    de: "Facility Codes CreditCard",
-  },
-  facilityCodesFeatures: {
-    it: "Facility Codes Features",
-    en: "Facility Codes Features",
-    de: "Facility Codes Features",
-  },
-  facilityCodesQuality: {
-    it: "Facility Codes Quality",
-    en: "Facility Codes Quality",
-    de: "Facility Codes Quality",
-  },
-  facilityCodesCuisine: {
-    it: "Facility Codes Cuisine",
     en: "Facility Codes Cuisine",
     de: "Facility Codes Cuisine",
   },
@@ -199,22 +182,9 @@ export const t = {
   },
   // List
   shortname: {
-    it: "SHORTNAME",
-    en: "SHORTNAME",
-    de: "SHORTNAME",
-  },
-    de: "Facility Codes Cuisine",
-  },
-  facilityCodesCeremony: {
-    it: "Facility Codes Ceremony",
-    en: "Facility Codes Ceremony",
-    de: "Facility Codes Ceremony",
-  },
-  // List
-  shortname: {
-    it: "SHORTNAME",
-    en: "SHORTNAME",
-    de: "SHORTNAME",
+    it: "NOME",
+    en: "NAME",
+    de: "NAME",
   },
   location: {
     it: "POSIZIONE",
@@ -229,12 +199,12 @@ export const t = {
   prev: {
     it: "prec.",
     en: "prev.",
-    de: "früher",
+    de: "zurück",
   },
   next: {
     it: "pros.",
     en: "next",
-    de: "nächste",
+    de: "weiter",
   },
   details: {
     it: "Dettagli",
@@ -249,6 +219,6 @@ export const t = {
   to: {
     it: "al",
     en: "to",
-    de: "zu",
+    de: "bis",
   },
 };
