@@ -46,7 +46,7 @@ export const t = {
   },
   search: {
     it: "Cerca",
-    en: "Seach",
+    en: "Search",
     de: "Suche",
   },
   my_location: {
