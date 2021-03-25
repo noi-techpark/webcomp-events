@@ -20,7 +20,7 @@
     }
   ],
   "image": "wcs-logo.png",
-  "searchTags": ["events","map"],
+  "searchTags": ["events","map","tourism"],
   "dist": {
     "basePath": "dist",
     "files": ["webcomp-events.js"]
