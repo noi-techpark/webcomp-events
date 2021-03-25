@@ -1,5 +1,5 @@
 {
-  "title": "Events Webcomponent",
+  "title": "Events",
   "description": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location.",
   "descriptionAbstract": "This web component shows all events provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
@@ -20,7 +20,7 @@
     }
   ],
   "image": "wcs-logo.png",
-  "searchTags": ["events"],
+  "searchTags": ["events","map"],
   "dist": {
     "basePath": "dist",
     "files": ["webcomp-events.js"]
