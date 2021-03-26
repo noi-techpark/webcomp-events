@@ -24,7 +24,7 @@ pipeline {
         stage('Clean') {
             steps {
                 sh '''
-                    rm -rf dist node_modules
+                    rm -rf dist
                 '''
             }
         }
@@ -39,15 +39,6 @@ pipeline {
         stage('Dependencies') {
             steps {
                 sh 'yarn'
-            }
-        }
-        stage('Test') {
-            steps {
-                // FIXME
-                sh '''
-                    echo "FIXME: yarn lint missing"
-                    echo "FIXME: yarn test missing"
-                '''
             }
         }
         stage('Build') {
