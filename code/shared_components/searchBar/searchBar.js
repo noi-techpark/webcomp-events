@@ -11,6 +11,7 @@ export class SearchBar extends LitElement {
     this.searchValue = '';
     this.placeHolder = '';
     this.filtersNumber = 0;
+    this.hideFilter = false;
     this.action = (value) => {
       console.log(value);
     };
@@ -31,7 +32,8 @@ export class SearchBar extends LitElement {
       filtersAction: { type: Function },
       searchValue: { type: String },
       placeHolder: { type: String },
-      filtersNumber: { type: Number }
+      filtersNumber: { type: Number },
+      hideFilter: { type: Boolean }
     };
   }
 
@@ -58,13 +60,14 @@ export class SearchBar extends LitElement {
         <img src="${XBlackIcon}" alt="erase_icon" />
       </div>
 
-      <div class="searchbar__section_separator"></div>
-
-      <div class="searchbar__section_filters">
-        ${this.filtersNumber
-          ? html`<div class="filterCounter" @click="${this.filtersAction}">${this.filtersNumber}</div>`
-          : html`<img src="${FilterGrayIcon}" alt="filter_icon" @click="${this.filtersAction}" />`}
-      </div>
+      ${!this.hideFilter
+        ? html`<div class="searchbar__section_separator"></div>
+            <div class="searchbar__section_filters">
+              ${this.filtersNumber
+                ? html`<div class="filterCounter" @click="${this.filtersAction}">${this.filtersNumber}</div>`
+                : html`<img src="${FilterGrayIcon}" alt="filter_icon" @click="${this.filtersAction}" />`}
+            </div>`
+        : ''}
     </div>`;
   }
 
