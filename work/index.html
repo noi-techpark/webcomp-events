@@ -36,20 +36,22 @@
       <div class="row">
         <div class="col-12 mt-5">
           <pre>modality="list" pageSize="5" disableEventDirections</pre>
-          <webcomp-events
-            width="100%"
-            height="500px"
-            fontFamily="Arial"
-            language="it"
-            mapAttribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-            currentLocation='{ "lat": 46.5, "lng": 11.3 }'
-            tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            modality="map"
-            pageSize="5"
-            -filterRadius="5"
-            disableEventDirections
-            categoriesFilter="[8,16]"
-          ></webcomp-events>
+          <div style="height: 800px">
+            <webcomp-events
+              width="100%"
+              height="100%"
+              fontFamily="Arial"
+              language="it"
+              mapAttribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+              currentLocation='{ "lat": 46.5, "lng": 11.3 }'
+              tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              modality="map"
+              pageSize="5"
+              -filterRadius="5"
+              disableEventDirections
+              categoriesFilter="[8,16]"
+            ></webcomp-events>
+          </div>
         </div>
       </div>
     </div>

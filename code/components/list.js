@@ -7,6 +7,9 @@ function renderRows(Detail, DateBegin, DateEnd, LocationInfo, Id) {
   if (!Detail[this.language]) {
     return null;
   }
+
+  console.log(Detail);
+
   return html`<div class="events__list_content_row">
     <div>${Detail[this.language].Title}</div>
     <div>${dayjs(DateBegin).format("DD/MM/YYYY")}</div>
