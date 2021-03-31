@@ -18,14 +18,13 @@ pipeline {
         WC_DIST_PATH = "dist"
 
         // Your environmental variables
-        TILES_API_KEY = credentials("here-api-key")
+        HEREMAP_API_KEY = credentials("here-api-key")
     }
     stages {
         stage('Clean') {
             steps {
                 sh '''
-                    rm -rf dist node_modules
-                    yarn cache clean
+                    rm -rf dist
                 '''
             }
         }
@@ -33,22 +32,13 @@ pipeline {
             steps {
                 sh '''
                     rm -rf .env
-                    echo "TILES_API_KEY=${TILES_API_KEY}" >> .env
+                    echo "HEREMAP_API_KEY=${HEREMAP_API_KEY}" >> .env
                 '''
             }
         }
         stage('Dependencies') {
             steps {
                 sh 'yarn'
-            }
-        }
-        stage('Test') {
-            steps {
-                // FIXME
-                sh '''
-                    echo "FIXME: yarn lint missing"
-                    echo "FIXME: yarn test missing"
-                '''
             }
         }
         stage('Build') {

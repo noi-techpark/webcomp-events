@@ -95,7 +95,7 @@ export function render_searchPlaces() {
     <div class="searchBox">
       <wc-searchbar
         .searchValue="${this.hereMapsQuery}"
-        placeHolder="${t.search.it}..."
+        placeHolder="${t.search[this.language]}..."
         .filtersNumber="${filtersNumber}"
         .filtersAction="${this.handleSearchBarFilterAction}"
         .action="${handle_onchange}"
