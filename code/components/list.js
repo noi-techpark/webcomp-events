@@ -2,16 +2,13 @@ import { html } from "lit-element";
 import { requestTourismEventDetails } from "../api/events";
 import { t } from "../translations";
 import dayjs from "dayjs";
+import { getTranslatedObject } from "../utils";
 
 function renderRows(Detail, DateBegin, DateEnd, LocationInfo, Id) {
-  if (!Detail[this.language]) {
-    return null;
-  }
-
-  console.log(Detail);
+  const details = getTranslatedObject(this.language, Detail);
 
   return html`<div class="events__list_content_row">
-    <div>${Detail[this.language].Title}</div>
+    <div>${details.Title || "No title"}</div>
     <div>${dayjs(DateBegin).format("DD/MM/YYYY")}</div>
     <div>${dayjs(DateEnd).format("DD/MM/YYYY")}</div>
     <div>${LocationInfo.TvInfo.Name[this.language]}</div>

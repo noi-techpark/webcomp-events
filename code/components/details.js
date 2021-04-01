@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { html } from "lit-element";
 import { SIDE_MODAL_ROW_TYPES } from "../shared_components/sideModalRow/sideModalRow";
 import { t } from "../translations";
+import { getTranslatedObject } from "../utils";
 
 export function render_details() {
   const { Detail, Latitude, Longitude } = this.currentEvent;
@@ -9,7 +10,8 @@ export function render_details() {
   const { TopicRIDs, LocationInfo } = this.currentEvent;
   const { DateBegin, DateEnd } = this.currentEvent;
   const { ContactInfos, OrganizerInfos } = this.currentEvent;
-  const { Title, BaseText } = Detail[this.language];
+  const details = getTranslatedObject(this.language, Detail);
+
   // ContactInfos
   const { Address, City, CompanyName, CountryCode, CountryName } = ContactInfos[
     this.language
@@ -25,7 +27,7 @@ export function render_details() {
     <div class="header">
       <wc-sidemodal-header
         .type="title"
-        .tTitle="${Title}"
+        .tTitle="${details.Title || "No title"}"
         .tLinkedTagText="${topicText}"
         .tOptionalLink="${!this.disableEventDirections
           ? {
@@ -50,11 +52,11 @@ export function render_details() {
           ${t["information"][this.language].toUpperCase()}
         </p>
       </div>
-      ${BaseText
+      ${details.BaseText
         ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["description"][this.language]}"
-            .text="${BaseText || "---"}"
+            .text="${details.BaseText || "---"}"
           ></wc-sidemodal-row>`
         : null}
       ${LocationInfo.TvInfo.Name[this.language]

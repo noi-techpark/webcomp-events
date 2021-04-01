@@ -200,7 +200,6 @@ class Events extends BaseEvents {
       isSmallHeight = parseInt(this.height.replace("px")) <= 400;
     } else if (this.height.includes("%")) {
       if (this.shadowRoot.querySelector(".events")) {
-        console.log(this.shadowRoot.querySelector(".events").clientHeight);
         height = `${this.shadowRoot.querySelector(".events").clientHeight}px`;
         isSmallHeight =
           this.shadowRoot.querySelector(".events").clientHeight <= 400;

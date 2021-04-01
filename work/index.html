@@ -35,13 +35,13 @@
     <div class="container">
       <div class="row">
         <div class="col-12 mt-5">
-          <pre>modality="list" pageSize="5" disableEventDirections</pre>
+          <!-- <pre>modality="list" pageSize="5" disableEventDirections</pre> -->
           <div style="height: 800px">
             <webcomp-events
               width="100%"
               height="100%"
               fontFamily="Arial"
-              language="it"
+              language="en"
               mapAttribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
               currentLocation='{ "lat": 46.5, "lng": 11.3 }'
               tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -49,7 +49,7 @@
               pageSize="5"
               -filterRadius="5"
               disableEventDirections
-              categoriesFilter="[8,16]"
+              -categoriesFilter="[8,16]"
             ></webcomp-events>
           </div>
         </div>
