@@ -19,9 +19,13 @@ export function render_details() {
   const { Email, Faxnumber } = ContactInfos[this.language];
   const { Phonenumber, Url, ZipCode } = ContactInfos[this.language];
 
-  const topicText = this.listEventsTopics.filter((topic) => {
+  let topicText = "";
+  const topics = this.listEventsTopics.filter((topic) => {
     return topic.Id === TopicRIDs[0];
-  })[0].TypeDesc[this.language];
+  })[0];
+  if (topics) {
+    topicText = topics.TypeDesc[this.language];
+  }
 
   return html` <div class="details">
     <div class="header">
