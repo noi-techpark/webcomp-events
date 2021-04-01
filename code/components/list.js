@@ -7,8 +7,6 @@ import { getTranslatedObject } from "../utils";
 function renderRow(Detail, DateBegin, DateEnd, LocationInfo, Id) {
   const details = getTranslatedObject(this.language, Detail);
 
-  console.log(typeof DateBegin, typeof DateEnd);
-
   return html`<div class="events__list_content_row">
     <div>${details.Title || "No title"}</div>
     <div>${DateBegin ? dayjs(DateBegin).format("DD/MM/YYYY") : "--"}</div>
@@ -40,8 +38,6 @@ export function render__list() {
     return null;
   }
   const { Items, TotalPages, CurrentPage, Id } = this.listEvents;
-
-  console.log(this.listEvents);
 
   return html`
     <div class="events__list">
