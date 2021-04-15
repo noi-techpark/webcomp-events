@@ -69,3 +69,36 @@ export function countFilters(filters) {
 
   return filtersNumber;
 }
+
+export const getTranslatedObject = (language, object) => {
+  if (object[language]) {
+    return object[language];
+  }
+
+  // Reference https://github.com/noi-techpark/webcomp-events/issues/25#issuecomment-811103663
+
+  // Fallbacks
+  if (language === "en") {
+    if (object["it"]) {
+      return object["it"];
+    } else if (object["de"]) {
+      return object["de"];
+    }
+  }
+  if (language === "de") {
+    if (object["it"]) {
+      return object["it"];
+    } else if (object["en"]) {
+      return object["en"];
+    }
+  }
+  if (language === "it") {
+    if (object["de"]) {
+      return object["de"];
+    } else if (object["en"]) {
+      return object["en"];
+    }
+  }
+
+  return undefined;
+};

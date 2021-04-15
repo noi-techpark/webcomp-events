@@ -88,7 +88,7 @@ export class SideModalHeader extends LitElement {
       ${this.type === SIDE_MODAL_HEADER_TYPES.title
         ? html` <div class="third_row">
             ${this.tSubtitle ? html`<div><p class="tSubtitle">${this.tSubtitle}</p></div>` : ''}
-            ${this.tOptionalLink.url
+            ${this.tOptionalLink && this.tOptionalLink.url
               ? html`<div>
                   <a class="tOptionalLink" href="${this.tOptionalLink.url}" target="_blank"
                     >${this.tOptionalLink.text}</a
