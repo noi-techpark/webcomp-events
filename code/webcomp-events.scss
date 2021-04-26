@@ -89,6 +89,11 @@
       .searchBox__resoult_list {
         max-height: calc(var(--height) - 32px - 86px);
         overflow-y: auto;
+        &.border {
+          border-bottom: 1px solid #eaeaea;
+          border-left: 1px solid #eaeaea;
+          border-right: 1px solid #eaeaea;
+        }
         ul {
           list-style: none;
           padding-left: 8px;

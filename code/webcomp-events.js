@@ -4,7 +4,7 @@ import { css, html, unsafeCSS } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
 import { debounce as _debounce } from "lodash";
 import { requestTourismEventsPaginated } from "./api/events";
-import { requestGetCoordinatesFromSearch } from "./api/hereMaps";
+import { requestGetCoordinatesFromSearch } from "./api/poi";
 import { BaseEvents } from "./baseClass";
 import { render_details } from "./components/details";
 import { render_filters } from "./components/filters";
