@@ -37,7 +37,7 @@ const createUrlFilters = (filters, currentLocation) => {
 export const requestTourismEvents = async (filters, currentLocation) => {
   try {
     const request = await fetch(
-      `${BASE_PATH_TOURISM_EVENT_REDUCED}?active=true&odhactive=true&fields=Id,Latitude,Longitude${createUrlFilters(
+      `${BASE_PATH_TOURISM_EVENT}?active=true&odhactive=true&pagesize=-1&fields=Id,Latitude,Longitude${createUrlFilters(
         filters,
         currentLocation
       )}`

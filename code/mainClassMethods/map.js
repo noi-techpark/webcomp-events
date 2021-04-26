@@ -70,7 +70,7 @@ export async function drawEventsOnMap() {
 
   const events = await requestTourismEvents(this.filters, this.currentLocation);
 
-  events.map((event) => {
+  events.Items.map((event) => {
     const marker_position = getLatLongFromStationDetail({
       x: event.Longitude,
       y: event.Latitude,
@@ -81,6 +81,7 @@ export async function drawEventsOnMap() {
     });
     const marker = Leaflet.marker([marker_position.lat, marker_position.lng], {
       icon: events_icon,
+      zIndexOffset: 1000,
     });
 
     const action = async () => {
