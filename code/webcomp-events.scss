@@ -1,6 +1,19 @@
 @import "./shared_components/baseline/colors.scss";
 @import "./shared_components/baseline/typography.scss";
 
+.caption {
+  @include MixinCaption;
+  &.uppercase {
+    text-transform: uppercase;
+  }
+  &.bold {
+    font-weight: 700;
+  }
+  &.block {
+    display: block;
+  }
+}
+
 .events {
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
