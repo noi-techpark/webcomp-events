@@ -4,14 +4,41 @@
 
 A web component that shows the events stored in the Open Data Hub.
 
-## Table of contents
+Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.bz.it/webcomponent/1cba7d30-8331-4b4a-b528-c4e03279365c)!
 
-- [Usage](#usage)
-- [Gettings started](#getting-started)
-- [Deployment](#deployment)
-- [Docker environment](#docker-environment)
-- [Information](#information)
-<!-- - [Tests and linting](#tests-and-linting) -->
+- [Events - Web component](#events---web-component)
+  - [Usage](#usage)
+    - [Attributes](#attributes)
+      - [width](#width)
+      - [height](#height)
+      - [fontFamily](#fontfamily)
+      - [language](#language)
+      - [mapAttribution](#mapattribution)
+      - [currentLocation](#currentlocation)
+      - [tiles-url](#tiles-url)
+      - [modality](#modality)
+      - [pageSize](#pagesize)
+      - [filterRadius](#filterradius)
+      - [disableEventDirections](#disableeventdirections)
+      - [categoriesFilter](#categoriesfilter)
+  - [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Source code](#source-code)
+    - [.env](#env)
+    - [Dependencies](#dependencies)
+    - [Build](#build)
+  - [Docker environment](#docker-environment)
+    - [Installation](#installation)
+    - [Dependenices](#dependenices)
+    - [Start and stop the containers](#start-and-stop-the-containers)
+    - [Running commands inside the container](#running-commands-inside-the-container)
+  - [Information](#information)
+    - [Support](#support)
+    - [Contributing](#contributing)
+    - [Documentation](#documentation)
+    - [Boilerplate](#boilerplate)
+    - [License](#license)
+
 
 ## Usage
 
