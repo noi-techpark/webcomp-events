@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: webcomp-parking
+Upstream-Name: webcomp-events
 Upstream-Contact: Peter Moser <p.moser@noi.bz.it>
-Source: https://github.com/noi-techpark/webcomp-parking
+Source: https://github.com/noi-techpark/webcomp-events
 
-Files: code/* work/* dist/webcomp-*.js webcomp-*.js
+Files: code/* work/* dist/*.js odh-*.js
 Copyright: 2021 Belka <hello@belkadigital.com>
 License: AGPL-3.0-or-later
 

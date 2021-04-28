@@ -42,9 +42,9 @@ Do you want to see it in action? Go to our [web component store](https://webcomp
 
 ## Usage
 
-Include the webcompscript file `dist/webcomp-events.js` in your HTML and define the web component like this:
+Include the webcomp script file `dist/odh-events.js` in your HTML and define the web component like this:
 ```html
- <webcomp-events
+ <odh-events
     width="100%"
     height="500px"
     fontFamily="Arial"
@@ -55,7 +55,7 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     modality="list"
     pageSize="5"
     categoriesFilter="[8,16]">
-</webcomp-events>
+</odh-events>
 ```
 
 ### Attributes

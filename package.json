@@ -1,5 +1,5 @@
 {
-  "name": "webcomp-events",
+  "name": "odh-events",
   "private": true,
   "dependencies": {
     "chart.js": "^2.9.4",

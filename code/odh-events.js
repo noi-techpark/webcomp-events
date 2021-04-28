@@ -32,7 +32,7 @@ import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import { t } from "./translations";
 import { isMobile, LANGUAGES, STATE_MODALITIES } from "./utils";
-import EventsStyle from "./webcomp-events.scss";
+import EventsStyle from "./odh-events.scss";
 
 class Events extends BaseEvents {
   static get properties() {
@@ -294,5 +294,5 @@ class Events extends BaseEvents {
   }
 }
 
-customElements.get("webcomp-events") ||
-  customElements.define("webcomp-events", Events);
+customElements.get("odh-events") ||
+  customElements.define("odh-events", Events);
