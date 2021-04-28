@@ -4,10 +4,10 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
-  entry: path.resolve(__dirname, "./code/webcomp-events.js"),
+  entry: path.resolve(__dirname, "./code/odh-events.js"),
   output: {
     path: path.resolve(__dirname, "./work/scripts"),
-    filename: "webcomp-events.js",
+    filename: "odh-events.js",
   },
   plugins: [new Dotenv()],
   module: {

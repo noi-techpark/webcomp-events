@@ -23,10 +23,16 @@
   "searchTags": ["events","map","tourism"],
   "dist": {
     "basePath": "dist",
-    "files": ["webcomp-events.js"]
+    "files": ["odh-events.js"],
+    "scripts": [
+      {
+        "file": "odh-events.js",
+        "parameter": ""
+      }
+    ]
   },
   "configuration": {
-    "tagName": "webcomp-events",
+    "tagName": "odh-events",
     "options": [
       {
         "key": "width",

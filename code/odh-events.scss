@@ -1,6 +1,19 @@
 @import "./shared_components/baseline/colors.scss";
 @import "./shared_components/baseline/typography.scss";
 
+.caption {
+  @include MixinCaption;
+  &.uppercase {
+    text-transform: uppercase;
+  }
+  &.bold {
+    font-weight: 700;
+  }
+  &.block {
+    display: block;
+  }
+}
+
 .events {
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
@@ -89,6 +102,11 @@
       .searchBox__resoult_list {
         max-height: calc(var(--height) - 32px - 86px);
         overflow-y: auto;
+        &.border {
+          border-bottom: 1px solid #eaeaea;
+          border-left: 1px solid #eaeaea;
+          border-right: 1px solid #eaeaea;
+        }
         ul {
           list-style: none;
           padding-left: 8px;

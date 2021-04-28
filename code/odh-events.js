@@ -4,7 +4,7 @@ import { css, html, unsafeCSS } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
 import { debounce as _debounce } from "lodash";
 import { requestTourismEventsPaginated } from "./api/events";
-import { requestGetCoordinatesFromSearch } from "./api/hereMaps";
+import { requestGetCoordinatesFromSearch } from "./api/poi";
 import { BaseEvents } from "./baseClass";
 import { render_details } from "./components/details";
 import { render_filters } from "./components/filters";
@@ -32,7 +32,7 @@ import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import { t } from "./translations";
 import { isMobile, LANGUAGES, STATE_MODALITIES } from "./utils";
-import EventsStyle from "./webcomp-events.scss";
+import EventsStyle from "./odh-events.scss";
 
 class Events extends BaseEvents {
   static get properties() {
@@ -188,17 +188,21 @@ class Events extends BaseEvents {
     if (this.width.includes("px")) {
       isSmallWidth = parseInt(this.width.replace("px")) <= 400;
     } else if (this.width.includes("%")) {
-      if (this.shadowRoot.querySelector(".meteo_generic")) {
+      if (this.shadowRoot.querySelector(".events")) {
         isSmallWidth =
-          this.shadowRoot.querySelector(".meteo_generic").clientWidth <= 400;
+          this.shadowRoot.querySelector(".events").clientWidth <= 400;
       }
     }
+
+    let height = `${this.height}`;
+
     if (this.height.includes("px")) {
       isSmallHeight = parseInt(this.height.replace("px")) <= 400;
     } else if (this.height.includes("%")) {
-      if (this.shadowRoot.querySelector(".meteo_generic")) {
+      if (this.shadowRoot.querySelector(".events")) {
+        height = `${this.shadowRoot.querySelector(".events").clientHeight}px`;
         isSmallHeight =
-          this.shadowRoot.querySelector(".meteo_generic").clientHeight <= 400;
+          this.shadowRoot.querySelector(".events").clientHeight <= 400;
       }
     }
 
@@ -206,7 +210,7 @@ class Events extends BaseEvents {
       <style>
         * {
           --width: ${this.width};
-          --height: ${this.height};
+          --height: ${height};
           --w-c-font-family: ${this.fontFamily};
         }
       </style>
@@ -290,5 +294,5 @@ class Events extends BaseEvents {
   }
 }
 
-customElements.get("webcomp-events") ||
-  customElements.define("webcomp-events", Events);
+customElements.get("odh-events") ||
+  customElements.define("odh-events", Events);

@@ -2,15 +2,15 @@ import { html } from "lit-element";
 import { requestTourismEventDetails } from "../api/events";
 import { t } from "../translations";
 import dayjs from "dayjs";
+import { getTranslatedObject } from "../utils";
 
-function renderRows(Detail, DateBegin, DateEnd, LocationInfo, Id) {
-  if (!Detail[this.language]) {
-    return null;
-  }
+function renderRow(Detail, DateBegin, DateEnd, LocationInfo, Id) {
+  const details = getTranslatedObject(this.language, Detail);
+
   return html`<div class="events__list_content_row">
-    <div>${Detail[this.language].Title}</div>
-    <div>${dayjs(DateBegin).format("DD/MM/YYYY")}</div>
-    <div>${dayjs(DateEnd).format("DD/MM/YYYY")}</div>
+    <div>${details.Title || "No title"}</div>
+    <div>${DateBegin ? dayjs(DateBegin).format("DD/MM/YYYY") : "--"}</div>
+    <div>${DateEnd ? dayjs(DateEnd).format("DD/MM/YYYY") : "--"}</div>
     <div>${LocationInfo.TvInfo.Name[this.language]}</div>
     <div>
       <p
@@ -38,6 +38,7 @@ export function render__list() {
     return null;
   }
   const { Items, TotalPages, CurrentPage, Id } = this.listEvents;
+
   return html`
     <div class="events__list">
       <div class="events__list_content">
@@ -51,7 +52,7 @@ export function render__list() {
         </div>
         ${Items
           ? Items.map(({ Detail, DateBegin, DateEnd, LocationInfo, Id }) => {
-              return renderRows.bind(this)(
+              return renderRow.bind(this)(
                 Detail,
                 DateBegin,
                 DateEnd,

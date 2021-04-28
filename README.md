@@ -1,21 +1,50 @@
 # Events - Web component
 
+[![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-events)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-events)
+
 A web component that shows the events stored in the Open Data Hub.
 
-## Table of contents
+Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.bz.it/webcomponent/1cba7d30-8331-4b4a-b528-c4e03279365c)!
 
-- [Usage](#usage)
-- [Gettings started](#getting-started)
-- [Deployment](#deployment)
-- [Docker environment](#docker-environment)
-- [Information](#information)
-<!-- - [Tests and linting](#tests-and-linting) -->
+- [Events - Web component](#events---web-component)
+  - [Usage](#usage)
+    - [Attributes](#attributes)
+      - [width](#width)
+      - [height](#height)
+      - [fontFamily](#fontfamily)
+      - [language](#language)
+      - [mapAttribution](#mapattribution)
+      - [currentLocation](#currentlocation)
+      - [tiles-url](#tiles-url)
+      - [modality](#modality)
+      - [pageSize](#pagesize)
+      - [filterRadius](#filterradius)
+      - [disableEventDirections](#disableeventdirections)
+      - [categoriesFilter](#categoriesfilter)
+  - [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Source code](#source-code)
+    - [.env](#env)
+    - [Dependencies](#dependencies)
+    - [Build](#build)
+  - [Docker environment](#docker-environment)
+    - [Installation](#installation)
+    - [Dependenices](#dependenices)
+    - [Start and stop the containers](#start-and-stop-the-containers)
+    - [Running commands inside the container](#running-commands-inside-the-container)
+  - [Information](#information)
+    - [Support](#support)
+    - [Contributing](#contributing)
+    - [Documentation](#documentation)
+    - [Boilerplate](#boilerplate)
+    - [License](#license)
+
 
 ## Usage
 
-Include the webcompscript file `dist/webcomp-events.js` in your HTML and define the web component like this:
+Include the webcomp script file `dist/odh-events.js` in your HTML and define the web component like this:
 ```html
- <webcomp-events
+ <odh-events
     width="100%"
     height="500px"
     fontFamily="Arial"
@@ -26,7 +55,7 @@ Include the webcompscript file `dist/webcomp-events.js` in your HTML and define 
     modality="list"
     pageSize="5"
     categoriesFilter="[8,16]">
-</webcomp-events>
+</odh-events>
 ```
 
 ### Attributes
@@ -137,7 +166,7 @@ Create a `.env` file in the main directory.
 Fill it with this content:
 
 ```
-HEREMAP_API_KEY=YourKey
+HEREMAPS_API_KEY=YourKey
 ```
 
 Replace `YourKey` with your API token to use the tiles and the search bar.

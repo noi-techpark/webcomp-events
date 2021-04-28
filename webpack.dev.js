@@ -1,16 +1,20 @@
 const path = require("path");
 const webpack = require("webpack");
-const Dotenv = require("dotenv-webpack");
+var dotenv = require("dotenv").config({ path: __dirname + "/.env" });
 
 module.exports = {
   mode: "development",
-  entry: path.resolve(__dirname, "./code/webcomp-events.js"),
+  entry: path.resolve(__dirname, "./code/odh-events.js"),
   watch: true,
   output: {
     path: path.resolve(__dirname, "./work/scripts"),
-    filename: "webcomp-events.js",
+    filename: "odh-events.js",
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.DOTENV": JSON.stringify(dotenv.parsed),
+    }),
+  ],
   // webpack-dev-server configuration
   devServer: {
     contentBase: path.resolve(__dirname, "./work"),
@@ -18,7 +22,7 @@ module.exports = {
     watchContentBase: true,
     compress: true,
     port: 8080,
-    open: true,
+    open: false,
     openPage: "",
     overlay: true,
   },

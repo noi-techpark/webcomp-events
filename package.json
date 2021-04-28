@@ -1,5 +1,5 @@
 {
-  "name": "webcomp-events",
+  "name": "odh-events",
   "private": true,
   "dependencies": {
     "chart.js": "^2.9.4",
@@ -17,7 +17,6 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^5.0.0",
     "dotenv": "^8.2.0",
-    "dotenv-webpack": "^4.0.0",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
     "svg-url-loader": "^6.0.0",
