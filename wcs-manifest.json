@@ -20,10 +20,17 @@
     }
   ],
   "image": "wcs-logo.png",
-  "searchTags": ["events","map","tourism"],
+  "searchTags": [
+    "events",
+    "map",
+    "tourism"
+  ],
   "dist": {
     "basePath": "dist",
-    "files": ["odh-events.js"],
+    "files": [
+      "odh-events.js",
+      "odh-events.js.LICENSE.txt"
+    ],
     "scripts": [
       {
         "file": "odh-events.js",
@@ -58,7 +65,11 @@
         "label": "Two letter key for the language to be used, if omitted the widget will use the language of the browser (navigator.language[?s]) if supported. Fallback is `en`",
         "required": false,
         "options": {
-          "values": ["en", "de", "it"],
+          "values": [
+            "en",
+            "de",
+            "it"
+          ],
           "default": "en"
         }
       },
@@ -68,7 +79,10 @@
         "label": "Visualization of the data",
         "required": true,
         "options": {
-          "values": ["map", "list"],
+          "values": [
+            "map",
+            "list"
+          ],
           "default": "map"
         }
       },
