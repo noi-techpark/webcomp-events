@@ -108,7 +108,7 @@
         "label": "The radius expressed in kilometers with which to filter events. Default value is 0.",
         "required": true,
         "options": {
-          "default": "5"
+          "default": "0"
         }
       },
       {
