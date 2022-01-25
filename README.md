@@ -1,6 +1,7 @@
 # Events - Web component
 
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-events)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-events)
+[![CI](https://github.com/noi-techpark/webcomp-events/actions/workflows/ci.yml/badge.svg)](https://github.com/noi-techpark/webcomp-events/actions/workflows/ci.yml)
 
 A web component that shows the events stored in the Open Data Hub.
 
