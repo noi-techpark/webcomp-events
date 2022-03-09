@@ -141,7 +141,7 @@ on your local machine for development and testing purposes.
 
 To build the project, the following prerequisites must be met:
 
-- Node 14.15.4 / Yarn 1.22.10
+- Node 14.15.4 / NPM 8.1.2
 
 For a ready to use Docker environment with all prerequisites already installed
 and prepared, you can check out the [Docker environment](#docker-environment)
@@ -177,7 +177,7 @@ Replace `YourKey` with your API token to use the tiles and the search bar.
 Download all dependencies:
 
 ```bash
-yarn install
+npm install
 ```
 
 ### Build
@@ -185,7 +185,7 @@ yarn install
 Build and start the project:
 
 ```bash
-yarn start
+npm run start
 ```
 
 The application will be served and can be accessed at [http://localhost:8080](http://localhost:8080).
@@ -204,7 +204,7 @@ npm run lint
 To create the distributable files, execute the following command:
 
 ```bash
-yarn build
+npm run build
 ```
 
 ## Docker environment
@@ -224,7 +224,7 @@ Install [Docker](https://docs.docker.com/install/) (with Docker Compose) locally
 First, install all dependencies:
 
 ```bash
-docker-compose run --rm app /bin/bash -c "yarn install"
+docker-compose run --rm app /bin/bash -c "npm install"
 ```
 
 ### Start and stop the containers
