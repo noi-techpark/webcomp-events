@@ -108,7 +108,7 @@ export async function drawEventsOnMap() {
 
   const events_layer = Leaflet.layerGroup(events_layer_array, {});
 
-  this.layer_events = new leaflet_mrkcls.MarkerClusterGroup({
+  this.layer_events = new Leaflet.MarkerClusterGroup({
     showCoverageOnHover: false,
     chunkedLoading: true,
     iconCreateFunction(cluster) {
