@@ -1,5 +1,8 @@
 // import { requestTourismEvents } from './events';
-import { BASE_PATH_TOURISM_EVENT } from "./config";
+import {
+  BASE_PATH_TOURISM_EVENT,
+  ORIGIN
+} from "./config";
 
 export async function requestGetCoordinatesFromSearch(query) {
   const r = 150 * 1000;
@@ -9,7 +12,7 @@ export async function requestGetCoordinatesFromSearch(query) {
 
       let formattedTourismEventsData = [];
       const tourismEventsRequest = await fetch(
-        `${BASE_PATH_TOURISM_EVENT}?active=true&odhactive=true&fields=Detail,Latitude,Longitude&searchfilter=${query}`
+        `${BASE_PATH_TOURISM_EVENT}?` + ORIGIN + `&active=true&odhactive=true&fields=Detail,Latitude,Longitude&searchfilter=${query}`
       );
       if (tourismEventsRequest.status !== 200) {
         throw new Error(tourismEventsRequest.statusText);
@@ -56,7 +59,7 @@ export async function requestGetCoordinatesFromSearch(query) {
       //
 
       const tourismResponse = await fetch(
-        `https://tourism.opendatahub.bz.it/api/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}`,
+        `https://tourism.opendatahub.bz.it/v1/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}&origin=webcomp-events`,
         {
           method: "GET",
           headers: new Headers({
