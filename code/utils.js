@@ -100,5 +100,5 @@ export const getTranslatedObject = (language, object) => {
     }
   }
 
-  return undefined;
+  return ""; // to fix problem with reduced data from Open Data Hub
 };

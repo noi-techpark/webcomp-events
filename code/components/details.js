@@ -32,11 +32,13 @@ export function render_details() {
   const { Phonenumber, Url, ZipCode } = handledContactInfos;
 
   let topicText = "";
-  const topics = this.listEventsTopics.filter((topic) => {
-    return topic.Id === TopicRIDs[0];
-  })[0];
-  if (topics) {
-    topicText = topics.TypeDesc[this.language];
+  if (TopicRIDs != null) { // to fix problem with reduced data from Open Data Hub
+    const topics = this.listEventsTopics.filter((topic) => {
+      return topic.Id === TopicRIDs[0];
+    })[0];
+    if (topics) {
+      topicText = topics.TypeDesc[this.language];
+    }
   }
 
   return html` <div class="details">
@@ -46,17 +48,17 @@ export function render_details() {
         .tTitle="${details.Title || "No title"}"
         .tLinkedTagText="${topicText}"
         .tOptionalLink="${!this.disableEventDirections
-          ? {
-              text: t["directions"][this.language],
-              url: `http://www.google.com/maps/place/${Latitude},${Longitude}`,
-            }
-          : {
-              text: "",
-              url: "",
-            }}"
+      ? {
+        text: t["directions"][this.language],
+        url: `http://www.google.com/maps/place/${Latitude},${Longitude}`,
+      }
+      : {
+        text: "",
+        url: "",
+      }}"
         .closeModalAction="${() => {
-          this.detailsOpen = false;
-        }}"
+      this.detailsOpen = false;
+    }}"
       ></wc-sidemodal-header>
     </div>
     <div>
@@ -69,19 +71,19 @@ export function render_details() {
         </p>
       </div>
       ${details.BaseText
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["description"][this.language]}"
             .text="${details.BaseText || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${LocationInfo.TvInfo.Name[this.language]
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["where"][this.language]}"
             .text="${LocationInfo.TvInfo.Name[this.language] || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
     </div>
 
     <div>
@@ -92,19 +94,19 @@ export function render_details() {
         <p class="caption space">${t["dates"][this.language].toUpperCase()}</p>
       </div>
       ${DateBegin
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.horizontal}"
             .title="${t["startDate"][this.language]}"
             .text="${dayjs(DateBegin).format("DD/MM/YYYY")}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${DateEnd
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.horizontal}"
             .title="${t["endDate"][this.language]}"
             .text="${dayjs(DateEnd).format("DD/MM/YYYY")}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
     </div>
     <div>
       <wc-divider></wc-divider>
@@ -116,54 +118,54 @@ export function render_details() {
         </p>
       </div>
       ${handledOrganizerInfos.CompanyName
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["organizer"][this.language]}"
             .text="${handledOrganizerInfos.CompanyName || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${handledOrganizerInfos.Address ||
       handledOrganizerInfos.City ||
       handledOrganizerInfos.CountryName ||
       handledOrganizerInfos.CountryCode
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["address"][this.language]}"
             .text="${handledOrganizerInfos.Address ||
-            ""} ${handledOrganizerInfos.City ||
-            ""} ${handledOrganizerInfos.CountryName ||
-            ""} ${handledOrganizerInfos.CountryCode || ""}"
+        ""} ${handledOrganizerInfos.City ||
+        ""} ${handledOrganizerInfos.CountryName ||
+        ""} ${handledOrganizerInfos.CountryCode || ""}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${handledOrganizerInfos.ZipCode
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["place"][this.language]}"
             .text="${handledOrganizerInfos.ZipCode || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${handledOrganizerInfos.Phonenumber || handledOrganizerInfos.Faxnumber
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["telFax"][this.language]}"
             .text="${handledOrganizerInfos.Phonenumber ||
-            "---"} / ${handledOrganizerInfos.Faxnumber || "---"}"
+        "---"} / ${handledOrganizerInfos.Faxnumber || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${handledOrganizerInfos.Email
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["eMail"][this.language]}"
             .text="${handledOrganizerInfos.Email || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${handledOrganizerInfos.Url
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["web"][this.language]}"
             .text="${handledOrganizerInfos.Url || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
     </div>
     <div>
       <wc-divider></wc-divider>
@@ -175,48 +177,48 @@ export function render_details() {
         </p>
       </div>
       ${CompanyName
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["organizer"][this.language]}"
             .text="${CompanyName || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${Address || City || CountryName || CountryCode
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["address"][this.language]}"
             .text="${Address || ""} ${City || ""} ${CountryName ||
-            ""} ${CountryCode || ""}"
+        ""} ${CountryCode || ""}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${ZipCode
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["place"][this.language]}"
             .text="${ZipCode || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${Phonenumber || Faxnumber
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["telFax"][this.language]}"
             .text="${Phonenumber || "---"} / ${Faxnumber || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${Email
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["eMail"][this.language]}"
             .text="${Email || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
       ${Url
-        ? html`<wc-sidemodal-row
+      ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["web"][this.language]}"
             .text="${Url || "---"}"
           ></wc-sidemodal-row>`
-        : null}
+      : null}
     </div>
   </div>`;
 }
