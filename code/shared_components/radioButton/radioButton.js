@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { css, html, LitElement, unsafeCSS } from 'lit-element';
 import TickWhiteIcon from '../assets/tick-white.svg';
 import style from './radioButton.scss';

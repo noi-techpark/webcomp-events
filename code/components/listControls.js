@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { html } from "lit-html";
 import mapImage from "../assets/map.svg";
 import { STATE_MODALITIES } from "../utils";
