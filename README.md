@@ -12,7 +12,7 @@ SPDX-License-Identifier: CC0-1.0
 
 A web component that shows the events stored in the Open Data Hub.
 
-Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.bz.it/webcomponent/1cba7d30-8331-4b4a-b528-c4e03279365c)!
+Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.com/webcomponent/1cba7d30-8331-4b4a-b528-c4e03279365c)!
 
 - [Events - Web component](#events---web-component)
   - [Usage](#usage)
@@ -266,7 +266,7 @@ docker-compose run --rm app /bin/bash -c "yarn start"
 
 ### Support
 
-ToDo: For support, please contact [help@opendatahub.bz.it](mailto:help@opendatahub.bz.it).
+ToDo: For support, please contact [help@opendatahub.com](mailto:help@opendatahub.com).
 
 ### Contributing
 
