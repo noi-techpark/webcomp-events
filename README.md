@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Events - Web component
 
-![REUSE Compliance](https://github.com/noi-techpark/webcomp-events/actions/workflows/reuse.yml/badge.svg)
+[![REUSE Compliance](https://github.com/noi-techpark/webcomp-events/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/odh-docs/wiki/REUSE#badges)
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-events)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-events)
 [![CI/CD](https://github.com/noi-techpark/webcomp-events/actions/workflows/main.yml/badge.svg)](https://github.com/noi-techpark/webcomp-events/actions/workflows/main.yml)
 
