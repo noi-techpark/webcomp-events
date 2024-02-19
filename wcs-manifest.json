@@ -112,7 +112,7 @@
         "label": "Attribution text for the tiles, can contain html (without double-quotes)",
         "required": true,
         "options": {
-          "default": "<a href='https://opendatahub.com'>OpenDataHub.com</a> | &copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
+          "default": "<a target='_blank'  href='https://opendatahub.com'>OpenDataHub.com</a> | &copy; <a target='_blank' href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
         }
       },
       {
