@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC0-1.0
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-events)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-events)
 [![CI/CD](https://github.com/noi-techpark/webcomp-events/actions/workflows/main.yml/badge.svg)](https://github.com/noi-techpark/webcomp-events/actions/workflows/main.yml)
 
-A web component that shows the events stored in the Open Data Hub.
+A web component that shows the events stored in the Open Data Hub. 
 
 Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.com/webcomponent/1cba7d30-8331-4b4a-b528-c4e03279365c)!
 
