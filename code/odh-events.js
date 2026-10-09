@@ -3,11 +3,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import "@babel/polyfill";
-import leafletStyle from "leaflet/dist/leaflet.css";
+import maplibreStyle from "maplibre-gl/dist/maplibre-gl.css";
 import { css, html, unsafeCSS } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
 import { debounce as _debounce } from "lodash";
 import { requestTourismEventsPaginated } from "./api/events";
+import { BASEMAP_STYLE_URL } from "./api/config";
 import { requestGetCoordinatesFromSearch } from "./api/poi";
 import { BaseEvents } from "./baseClass";
 import { render_details } from "./components/details";
@@ -18,9 +19,9 @@ import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
 import { getFilters } from "./mainClassMethods/filters";
 import {
-  drawEventsOnMap,
   drawUserOnMap,
   initializeMap,
+  updateEventTiles,
 } from "./mainClassMethods/map";
 import { observedProperties } from "./observedProperties";
 import "./shared_components/button/button";
@@ -35,7 +36,13 @@ import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import { t } from "./translations";
-import { isMobile, LANGUAGES, STATE_MODALITIES } from "./utils";
+import {
+  getDefaultFilters,
+  isMobile,
+  LANGUAGES,
+  resolveBeginDate,
+  STATE_MODALITIES,
+} from "./utils";
 import EventsStyle from "./odh-events.scss";
 
 class Events extends BaseEvents {
@@ -46,7 +53,7 @@ class Events extends BaseEvents {
   static get styles() {
     return css`
       /* Map */
-      ${unsafeCSS(leafletStyle)}
+      ${unsafeCSS(maplibreStyle)}
       ${unsafeCSS(EventsStyle)}
     `;
   }
@@ -54,9 +61,12 @@ class Events extends BaseEvents {
   handleWindowResize() {
     if (isMobile() !== this.isMobile) {
       if (!this.isMobile) {
-        this.mobileOpen = false;
+        this.mobileOpen = true;
       }
       this.isMobile = isMobile();
+    }
+    if (this.map) {
+      this.map.resize();
     }
   }
 
@@ -66,6 +76,17 @@ class Events extends BaseEvents {
       "resize",
       _debounce(this.handleWindowResize.bind(this), 150)
     );
+
+    if (!this.tiles_url) {
+      this.tiles_url = BASEMAP_STYLE_URL;
+    }
+
+    // Seed date filters from attributes (defaults: begindate=today, enddate=null)
+    this.filters = {
+      ...getDefaultFilters(),
+      dateFrom: resolveBeginDate(this.begindate),
+      dateTo: this.enddate && this.enddate.length ? this.enddate : "",
+    };
 
     if (this.filterRadius && parseFloat(this.filterRadius)) {
       this.filters = {
@@ -82,6 +103,10 @@ class Events extends BaseEvents {
   }
   disconnectedCallback() {
     window.removeEventListener("resize", this.handleWindowResize.bind(this));
+    if (this.map) {
+      this.map.remove();
+      this.map = undefined;
+    }
     super.disconnectedCallback();
   }
 
@@ -98,31 +123,38 @@ class Events extends BaseEvents {
         this.currentLocation,
         this.listEventsCurrentPage,
         this.pageSize,
-        this.language
+        this.language,
+        this.source
       );
     }
 
     if (this.modality === STATE_MODALITIES.map) {
-      initializeMap.bind(this)();
-      drawUserOnMap.bind(this)();
-      await drawEventsOnMap.bind(this)();
+      try {
+        await initializeMap.bind(this)();
+      } catch (err) {
+        console.error("Failed to initialize events map", err);
+      }
     }
 
     this.isLoading = false;
+    if (this.map) {
+      requestAnimationFrame(() => this.map && this.map.resize());
+    }
   }
 
   updated(changedProperties) {
     changedProperties.forEach((oldValue, propName) => {
       if (propName === "mobileOpen" || propName === "isMobile") {
         if (this.map) {
-          this.map.invalidateSize();
+          requestAnimationFrame(() => this.map.resize());
         }
       }
       if (
         (propName === "filters" ||
           propName === "listEventsCurrentPage" ||
           propName === "language" ||
-          propName === "modality") &&
+          propName === "modality" ||
+          propName === "source") &&
         this.modality === STATE_MODALITIES.list
       ) {
         this.isLoading = true;
@@ -131,41 +163,58 @@ class Events extends BaseEvents {
           this.currentLocation,
           this.listEventsCurrentPage,
           this.pageSize,
-          this.language
+          this.language,
+          this.source
         ).then((events) => {
           this.listEvents = events;
           this.isLoading = false;
         });
       }
       if (
-        (propName === "filters" || propName === "language") &&
-        this.modality === STATE_MODALITIES.map
+        (propName === "filters" ||
+          propName === "source" ||
+          propName === "begindate" ||
+          propName === "enddate") &&
+        this.modality === STATE_MODALITIES.map &&
+        this.map
       ) {
+        if (propName === "begindate" || propName === "enddate") {
+          this.filters = {
+            ...this.filters,
+            dateFrom: resolveBeginDate(this.begindate),
+            dateTo:
+              this.enddate && this.enddate.length ? this.enddate : "",
+          };
+        }
+        updateEventTiles.bind(this)();
+        drawUserOnMap.bind(this)();
+      }
+      if (propName === "modality" && this.modality === STATE_MODALITIES.list) {
         if (this.map) {
-          this.map.off();
           this.map.remove();
-          this.isLoading = true;
-          initializeMap
-            .bind(this)()
-            .then(() => {
-              drawUserOnMap.bind(this)();
-              drawEventsOnMap
-                .bind(this)()
-                .then(() => {
-                  this.isLoading = false;
-                });
-            });
+          this.map = undefined;
+        }
+        if (this.userMarker) {
+          this.userMarker.remove();
+          this.userMarker = undefined;
         }
       }
       if (propName === "modality" && oldValue === STATE_MODALITIES.list) {
         this.isLoading = true;
-        initializeMap.bind(this)();
-        drawUserOnMap.bind(this)();
-        drawEventsOnMap
-          .bind(this)()
-          .then(() => {
-            this.isLoading = false;
-          });
+        // Wait for the map container to be in the DOM
+        this.updateComplete.then(() =>
+          initializeMap
+            .bind(this)()
+            .catch((err) => {
+              console.error("Failed to initialize events map", err);
+            })
+            .finally(() => {
+              this.isLoading = false;
+              if (this.map) {
+                requestAnimationFrame(() => this.map && this.map.resize());
+              }
+            })
+        );
       }
     });
   }
@@ -181,12 +230,6 @@ class Events extends BaseEvents {
   );
 
   render() {
-    if (!this.tiles_url) {
-      return html`
-        <p style="color:red">Required attribute \`tiles_url\` is missing</p>
-      `;
-    }
-
     let isSmallWidth = false;
     let isSmallHeight = false;
     if (this.width.includes("px")) {
@@ -212,10 +255,14 @@ class Events extends BaseEvents {
 
     return html`
       <style>
-        * {
+        :host {
           --width: ${this.width};
           --height: ${height};
           --w-c-font-family: ${this.fontFamily};
+          display: block;
+          width: ${this.width};
+          height: ${height};
+          box-sizing: border-box;
         }
       </style>
 
@@ -229,19 +276,6 @@ class Events extends BaseEvents {
           isSmallHeight: isSmallHeight,
         })}
       >
-        ${this.isMobile && !this.mobileOpen
-          ? html`<div class="MODE__mobile__closed__overlay">
-              <wc-button
-                @click="${() => {
-                  this.mobileOpen = true;
-                }}"
-                type="primary"
-                .content="${this.modality === STATE_MODALITIES.map
-                  ? t["openTheMap"][this.language]
-                  : t["openTheList"][this.language]}"
-              ></wc-button>
-            </div>`
-          : ""}
         ${this.isLoading ? html`<div class="globalOverlay"></div>` : ""}
         ${(isMobile() &&
           !this.detailsOpen &&

@@ -1,6 +1,6 @@
 {
   "title": "Events",
-  "description": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location.",
+  "description": "A widget that allows to easily integrate the list or map view of the events that are taking place in all South Tyrol or near a certain location. The map loads clustered vector tiles from the Open Data Hub Geo Api; details are loaded on click from the Tourism Api.",
   "descriptionAbstract": "This web component shows all events provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
   "repositoryUrl": "https://github.com/noi-techpark/webcomp-events.git",
@@ -109,25 +109,63 @@
       {
         "key": "mapAttribution",
         "type": "text",
-        "label": "Attribution text for the tiles, can contain html (without double-quotes)",
-        "required": true,
+        "label": "Extra attribution text for the basemap (HTML without double-quotes)",
+        "required": false,
         "options": {
-          "default": "<a target='_blank'  href='https://opendatahub.com'>OpenDataHub.com</a> | &copy; <a target='_blank' href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
+          "default": "<a target='_blank' href='https://opendatahub.com'>OpenDataHub.com</a>"
         }
       },
       {
         "key": "tiles-url",
         "type": "text",
-        "label": "Url for the tiles, see https://leafletjs.com/reference-1.6.0.html#tilelayer",
-        "required": true,
+        "label": "MapLibre style URL for the basemap",
+        "required": false,
         "options": {
-          "default": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          "default": "https://tiles.openfreemap.org/styles/positron"
+        }
+      },
+      {
+        "key": "source",
+        "type": "multiselect",
+        "label": "Sources of the Events (comma-separated when set as attribute)",
+        "required": false,
+        "options": {
+          "values": [
+            "drin",
+            "ebms",
+            "lts",
+            "momentus",
+            "nobis",
+            "noi",
+            "peer",
+            "retealfemminile",
+            "trevilab",
+            "unibz"
+          ]
+        }
+      },
+      {
+        "key": "begindate",
+        "type": "text",
+        "label": "Only show events on or after this date (yyyy-MM-dd). Default is today so past events are hidden.",
+        "required": false,
+        "options": {
+          "default": "now"
+        }
+      },
+      {
+        "key": "enddate",
+        "type": "text",
+        "label": "Only show events on or before this date (yyyy-MM-dd). Leave empty for no upper bound.",
+        "required": false,
+        "options": {
+          "default": null
         }
       },
       {
         "key": "filterRadius",
         "type": "text",
-        "label": "The radius expressed in kilometers with which to filter events. Default value is 0.",
+        "label": "Radius in km around currentLocation (drawn on the map; also filters list modality via Tourism Api). Default 0.",
         "required": true,
         "options": {
           "default": "0"
@@ -145,7 +183,7 @@
       {
         "key": "categoriesFilter",
         "type": "text",
-        "label": "If set, all the gastronomies are filtered by the bitmask values in the array.",
+        "label": "If set, events are filtered by the topic bitmask values in the array (list modality / Tourism Api).",
         "required": false,
         "options": {
           "default": "[]"

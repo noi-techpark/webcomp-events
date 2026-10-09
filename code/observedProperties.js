@@ -12,6 +12,9 @@ export const observedProperties = {
   disableEventDirections: { type: Boolean },
   categoriesFilter: { type: Array },
   currentLocation: { type: Object },
+  source: { type: String },
+  begindate: { type: String },
+  enddate: { type: String },
 
   isLoading: { type: Boolean },
   mobileOpen: { type: Boolean },
