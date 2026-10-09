@@ -25,9 +25,11 @@ export function render_searchPlaces() {
     this.currentEvent = {};
     this.searchPlacesFound = {};
     this.filtersOpen = false;
-    if (this.modality === STATE_MODALITIES.map) {
-      this.map.flyTo([lat, lng], 15);
-      this.map.removeLayer(this.layer_user);
+    if (this.modality === STATE_MODALITIES.map && this.map) {
+      this.map.flyTo({
+        center: [parseFloat(lng), parseFloat(lat)],
+        zoom: 15,
+      });
       this.drawMap();
     }
     this.isLoading = false;

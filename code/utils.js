@@ -15,12 +15,27 @@ export const LANGUAGES = {
   IT: "it",
 };
 
-export const STATE_DEFAULT_FILTERS = {
+/** Today's date as yyyy-MM-dd (default begindate so past events are hidden). */
+export function todayDateString() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/** Resolve begindate attribute: empty / "now" → today; otherwise the given yyyy-MM-dd. */
+export function resolveBeginDate(value) {
+  if (!value || value === "now") {
+    return todayDateString();
+  }
+  return value;
+}
+
+export const getDefaultFilters = () => ({
   radius: "0",
-  dateFrom: "",
+  dateFrom: todayDateString(),
   dateTo: "",
   topic: [], // Array of numbers
-};
+});
+
+export const STATE_DEFAULT_FILTERS = getDefaultFilters();
 
 export const STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN = {};
 
@@ -63,7 +78,15 @@ export function countFilters(filters) {
     filtersNumber = filtersNumber + 1;
   }
 
-  if (filters.dateFrom.length || filters.dateTo.length) {
+  // Default is begindate=today with no enddate — don't count that as an active filter
+  const isDefaultDateFilter =
+    filters.dateFrom === todayDateString() &&
+    !(filters.dateTo && filters.dateTo.length);
+  if (
+    !isDefaultDateFilter &&
+    ((filters.dateFrom && filters.dateFrom.length) ||
+      (filters.dateTo && filters.dateTo.length))
+  ) {
     filtersNumber = filtersNumber + 1;
   }
 
@@ -75,6 +98,9 @@ export function countFilters(filters) {
 }
 
 export const getTranslatedObject = (language, object) => {
+  if (!object || typeof object !== "object") {
+    return {};
+  }
   if (object[language]) {
     return object[language];
   }
@@ -104,5 +130,5 @@ export const getTranslatedObject = (language, object) => {
     }
   }
 
-  return ""; // to fix problem with reduced data from Open Data Hub
+  return {}; // to fix problem with reduced data from Open Data Hub
 };

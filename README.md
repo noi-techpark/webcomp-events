@@ -57,12 +57,12 @@ Include the webcomp script file `dist/odh-events.js` in your HTML and define the
     height="500px"
     fontFamily="Arial"
     language="it"
-    mapAttribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    mapAttribution='<a target="_blank" href="https://opendatahub.com">OpenDataHub.com</a>'
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
-    tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    modality="list"
-    pageSize="5"
-    categoriesFilter="[8,16]">
+    tiles-url="https://tiles.openfreemap.org/styles/positron"
+    modality="map"
+    source="lts,noi"
+    pageSize="5">
 </odh-events>
 ```
 
@@ -106,9 +106,29 @@ Example: `'{ "lat": 46.31, "lng": 11.26 }'`
 
 #### tiles-url
 
-Set the URL of the API that provides the tiles.
+MapLibre style URL for the basemap (not a Leaflet XYZ template). Defaults to OpenFreeMap Positron.
 
-Example: `"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"`
+Example: `"https://tiles.openfreemap.org/styles/positron"`
+
+#### source
+
+Comma-separated list of event sources to show (Geo Api / Tourism Api `source` filter).
+
+Example: `"lts,noi"`
+
+Available values: `drin`, `ebms`, `lts`, `momentus`, `nobis`, `noi`, `peer`, `retealfemminile`, `trevilab`, `unibz`
+
+#### begindate
+
+Only show events on or after this date (`yyyy-MM-dd`). Defaults to today (`now`) so past events are hidden.
+
+Example: `"2026-10-09"` or `"now"`
+
+#### enddate
+
+Only show events on or before this date (`yyyy-MM-dd`). Defaults to empty (no upper bound).
+
+Example: `"2026-12-31"`
 
 #### modality
 
@@ -118,13 +138,13 @@ Example: `"list" or "map"`
 
 #### pageSize
 
-Set the default and starting value for the modality of the widget. Default value is 10.
+Set the page size for list modality. Default value is 10.
 
 Example: `"5"`
 
 #### filterRadius
 
-The radius expressed in kilometers with which to filter events. Default value is 0.
+The radius expressed in kilometers drawn around the current location on the map. Default value is 0.
 
 Example: `"5"`
 
@@ -134,7 +154,7 @@ If set the road directions are hidden.
 
 #### categoriesFilter
 
-If set, all the gastronomies are filtered by the bitmask values in the array.
+If set, events in list modality are filtered by the topic bitmask values in the array.
 
 Example: `"[8,16]"`
 
@@ -175,6 +195,9 @@ Fill it with this content:
 
 ```
 HEREMAPS_API_KEY=YourKey
+TOURISM_BASE_PATH=https://tourism.api.opendatahub.com/v1
+GEO_BASE_PATH=https://geo.api.opendatahub.com
+BASEMAP_STYLE_URL=https://tiles.openfreemap.org/styles/positron
 ```
 
 Replace `YourKey` with your API token to use the tiles and the search bar.

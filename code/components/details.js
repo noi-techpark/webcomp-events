@@ -5,6 +5,7 @@
 import dayjs from "dayjs";
 import { html } from "lit-element";
 import { SIDE_MODAL_ROW_TYPES } from "../shared_components/sideModalRow/sideModalRow";
+import { closeEventDetail } from "../mainClassMethods/map";
 import { t } from "../translations";
 import { getTranslatedObject } from "../utils";
 
@@ -61,7 +62,7 @@ export function render_details() {
         url: "",
       }}"
         .closeModalAction="${() => {
-      this.detailsOpen = false;
+      closeEventDetail.bind(this)();
     }}"
       ></wc-sidemodal-header>
     </div>

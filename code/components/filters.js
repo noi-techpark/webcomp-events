@@ -4,7 +4,7 @@
 
 import { html } from "lit-element";
 import { t } from "../translations";
-import { countFilters, STATE_DEFAULT_FILTERS } from "../utils";
+import { countFilters, getDefaultFilters } from "../utils";
 
 export function render_filters() {
   let filtersNumber = countFilters(this.filters);
@@ -18,7 +18,7 @@ export function render_filters() {
         ]}"
         .fCancelFiltersText="${t["cancelFilters"][this.language]}"
         .fCancelFiltersAction="${() => {
-          this.filters = STATE_DEFAULT_FILTERS;
+          this.filters = getDefaultFilters();
         }}"
         .closeModalAction="${() => {
           this.filtersOpen = false;

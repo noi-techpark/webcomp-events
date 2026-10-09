@@ -15,7 +15,7 @@ function renderRow(Detail, DateBegin, DateEnd, LocationInfo, Id) {
     <div>${details.Title || "No title"}</div>
     <div>${DateBegin ? dayjs(DateBegin).format("DD/MM/YYYY") : "--"}</div>
     <div>${DateEnd ? dayjs(DateEnd).format("DD/MM/YYYY") : "--"}</div>
-    <div>${LocationInfo.TvInfo.Name[this.language]}</div>
+    <div>${LocationInfo?.TvInfo?.Name?.[this.language] || "--"}</div>
     <div>
       <p
         @click="${() => {

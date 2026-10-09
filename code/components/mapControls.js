@@ -14,11 +14,11 @@ import { getCurrentPosition, isMobile, STATE_MODALITIES } from "../utils";
 
 export function render__mapControls() {
   const handleBtnZoomIn = () => {
-    this.map.setZoom(this.map.getZoom() + 1);
+    this.map.zoomIn();
   };
 
   const handleBtnZoomOut = () => {
-    this.map.setZoom(this.map.getZoom() - 1);
+    this.map.zoomOut();
   };
 
   const handleBtnCenterMap = async () => {
@@ -28,9 +28,7 @@ export function render__mapControls() {
       const { latitude, longitude } = coords;
 
       this.currentLocation = { lat: latitude, lng: longitude };
-      this.map.flyTo([latitude, longitude], 13);
-      // this.map.removeLayer(this.layer_columns);
-      this.map.removeLayer(this.layer_user);
+      this.map.flyTo({ center: [longitude, latitude], zoom: 13 });
       drawUserOnMap.bind(this)();
       this.isLoading = false;
     } catch (error) {
