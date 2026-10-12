@@ -84,7 +84,7 @@ export function render_details() {
             .text="${details.BaseText || "---"}"
           ></wc-sidemodal-row>`
       : null}
-      ${LocationInfo.TvInfo.Name[this.language]
+      ${LocationInfo?.TvInfo?.Name?.[this.language]
       ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["where"][this.language]}"

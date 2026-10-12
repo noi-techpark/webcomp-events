@@ -22,9 +22,10 @@ const createUrlFilters = (filters, currentLocation, source) => {
 
   // Tourism Event tagfilter syntax: or(Tag.Id,Tag.Id) / and(...)
   let tagFilter = "";
-  if (filters.tags && filters.tags.length) {
+  const selectedTags = (filters && filters.tags) || [];
+  if (selectedTags.length) {
     tagFilter = `&tagfilter=${encodeURIComponent(
-      `or(${filters.tags.join(",")})`
+      `or(${selectedTags.join(",")})`
     )}`;
   }
 
@@ -109,7 +110,7 @@ export const requestTourismEventsPaginated = async (
 export const requestEventCategoryTags = async () => {
   try {
     const request = await fetch(
-      `${BASE_PATH_TOURISM_TAG}?validforentity=event&types=eventtopic&pagesize=100&fields=Id,TagName,Shortname,Active&` +
+      `${BASE_PATH_TOURISM_TAG}?validforentity=event&types=eventtopic&pagesize=-1&fields=Id,TagName,Shortname,Active&` +
         ORIGIN
     );
     if (request.status !== 200) {
@@ -119,7 +120,7 @@ export const requestEventCategoryTags = async () => {
     const items = Array.isArray(response)
       ? response
       : response.Items || [];
-    return items.filter((tag) => tag.Active !== false);
+    return items.filter((tag) => tag && tag.Id && tag.Active !== false);
   } catch (error) {
     console.log(error);
     return [];

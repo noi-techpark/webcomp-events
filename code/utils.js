@@ -52,6 +52,28 @@ export function getTagLabel(tag, language) {
   );
 }
 
+/**
+ * Normalize categoriesFilter attribute/property to an array of Tag.Id strings.
+ * Accepts a real array or a JSON string like '["id1","id2"]'.
+ */
+export function normalizeCategoriesFilter(value) {
+  if (!value) {
+    return [];
+  }
+  let list = value;
+  if (typeof value === "string") {
+    try {
+      list = JSON.parse(value);
+    } catch (e) {
+      return [];
+    }
+  }
+  if (!Array.isArray(list)) {
+    return [];
+  }
+  return list.map(String).filter(Boolean);
+}
+
 export const STATE_DEFAULT_FILTERS = getDefaultFilters();
 
 export const STATE_DEFAULT_FILTERS_ACCORDIONS_OPEN = {};

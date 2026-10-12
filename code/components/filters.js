@@ -80,20 +80,22 @@ export function render_filters() {
       <div class="options_container">
         ${(this.listEventsTopics || []).map((tag) => {
           const label = getTagLabel(tag, this.language);
-          const selected = this.filters.tags.includes(tag.Id);
+          const selectedTags = this.filters.tags || [];
+          const selected = selectedTags.includes(tag.Id);
           return html`
             <wc-checkbox
               .value="${selected}"
               .action="${() => {
+                const current = this.filters.tags || [];
                 if (selected) {
                   this.filters = {
                     ...this.filters,
-                    tags: this.filters.tags.filter((id) => id !== tag.Id),
+                    tags: current.filter((id) => id !== tag.Id),
                   };
                 } else {
                   this.filters = {
                     ...this.filters,
-                    tags: [...this.filters.tags, tag.Id],
+                    tags: [...current, tag.Id],
                   };
                 }
               }}"

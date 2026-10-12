@@ -40,6 +40,7 @@ import {
   getDefaultFilters,
   isMobile,
   LANGUAGES,
+  normalizeCategoriesFilter,
   resolveBeginDate,
   STATE_MODALITIES,
 } from "./utils";
@@ -94,11 +95,11 @@ class Events extends BaseEvents {
         radius: this.filterRadius,
       };
     }
-    if (this.categoriesFilter && this.categoriesFilter.length) {
-      // categoriesFilter is an array of Tag.Id values
+    const categoryTags = normalizeCategoriesFilter(this.categoriesFilter);
+    if (categoryTags.length) {
       this.filters = {
         ...this.filters,
-        tags: this.categoriesFilter.map(String),
+        tags: categoryTags,
       };
     }
   }
@@ -155,7 +156,8 @@ class Events extends BaseEvents {
           propName === "listEventsCurrentPage" ||
           propName === "language" ||
           propName === "modality" ||
-          propName === "source") &&
+          propName === "source" ||
+          propName === "categoriesFilter") &&
         this.modality === STATE_MODALITIES.list
       ) {
         this.isLoading = true;
@@ -171,11 +173,18 @@ class Events extends BaseEvents {
           this.isLoading = false;
         });
       }
+      if (propName === "categoriesFilter") {
+        this.filters = {
+          ...this.filters,
+          tags: normalizeCategoriesFilter(this.categoriesFilter),
+        };
+      }
       if (
         (propName === "filters" ||
           propName === "source" ||
           propName === "begindate" ||
-          propName === "enddate") &&
+          propName === "enddate" ||
+          propName === "categoriesFilter") &&
         this.modality === STATE_MODALITIES.map &&
         this.map
       ) {
