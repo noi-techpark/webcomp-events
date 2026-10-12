@@ -32,8 +32,25 @@ export const getDefaultFilters = () => ({
   radius: "0",
   dateFrom: todayDateString(),
   dateTo: "",
-  topic: [], // Array of numbers
+  tags: [], // Array of Tag.Id strings (eventtopic)
 });
+
+/** Localized label for a Tourism Tag (event category). */
+export function getTagLabel(tag, language) {
+  if (!tag) {
+    return "";
+  }
+  const names = tag.TagName || {};
+  return (
+    names[language] ||
+    names.en ||
+    names.de ||
+    names.it ||
+    tag.Shortname ||
+    tag.Id ||
+    ""
+  );
+}
 
 export const STATE_DEFAULT_FILTERS = getDefaultFilters();
 
@@ -90,7 +107,7 @@ export function countFilters(filters) {
     filtersNumber = filtersNumber + 1;
   }
 
-  if (filters.topic.length) {
+  if (filters.tags && filters.tags.length) {
     filtersNumber = filtersNumber + 1;
   }
 

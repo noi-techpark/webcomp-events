@@ -95,9 +95,10 @@ class Events extends BaseEvents {
       };
     }
     if (this.categoriesFilter && this.categoriesFilter.length) {
+      // categoriesFilter is an array of Tag.Id values
       this.filters = {
         ...this.filters,
-        topic: this.categoriesFilter,
+        tags: this.categoriesFilter.map(String),
       };
     }
   }

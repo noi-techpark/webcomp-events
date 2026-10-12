@@ -154,9 +154,9 @@ If set the road directions are hidden.
 
 #### categoriesFilter
 
-If set, events in list modality are filtered by the topic bitmask values in the array.
+Array of event category **Tag.Id** values from `/v1/Tag?validforentity=event&types=eventtopic`. Applied as Geo Api `tagfilter` (map) and Tourism Event `tagfilter` (list).
 
-Example: `"[8,16]"`
+Example: `'["7E048074BA004EC58E29E330A9AA476B"]'`
 
 
 ## Getting started

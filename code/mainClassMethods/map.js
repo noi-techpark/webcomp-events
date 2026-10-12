@@ -49,10 +49,13 @@ function createGeoJSONCircle([lng, lat], radiusInKm, points = 64) {
 }
 
 export function getEventTileParams() {
+  const tags = this.filters.tags || [];
   return {
     source: this.source || undefined,
     begindate: this.filters.dateFrom || undefined,
     enddate: this.filters.dateTo || undefined,
+    // Geo Api: comma-separated Tag.Id list (OR)
+    tagfilter: tags.length ? tags.join(",") : undefined,
   };
 }
 

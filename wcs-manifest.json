@@ -183,7 +183,7 @@
       {
         "key": "categoriesFilter",
         "type": "text",
-        "label": "If set, events are filtered by the topic bitmask values in the array (list modality / Tourism Api).",
+        "label": "Array of event category Tag.Id values (from /v1/Tag?validforentity=event&types=eventtopic). Applied as Geo Api tagfilter and Tourism Event tagfilter.",
         "required": false,
         "options": {
           "default": "[]"
