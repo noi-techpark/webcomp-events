@@ -159,7 +159,7 @@
         "label": "Only show events on or before this date (yyyy-MM-dd). Leave empty for no upper bound.",
         "required": false,
         "options": {
-          "default": null
+          "default": ""
         }
       },
       {
