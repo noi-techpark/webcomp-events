@@ -7,12 +7,12 @@ import { html } from "lit-element";
 import { SIDE_MODAL_ROW_TYPES } from "../shared_components/sideModalRow/sideModalRow";
 import { closeEventDetail } from "../mainClassMethods/map";
 import { t } from "../translations";
-import { getTranslatedObject } from "../utils";
+import { getTagLabel, getTranslatedObject } from "../utils";
 
 export function render_details() {
   const { Detail, Latitude, Longitude } = this.currentEvent;
 
-  const { TopicRIDs, LocationInfo } = this.currentEvent;
+  const { TopicRIDs, TagIds, LocationInfo } = this.currentEvent;
   const { DateBegin, DateEnd } = this.currentEvent;
   const details = getTranslatedObject(this.language, Detail);
 
@@ -37,12 +37,14 @@ export function render_details() {
   const { Phonenumber, Url, ZipCode } = handledContactInfos;
 
   let topicText = "";
-  if (TopicRIDs != null) { // to fix problem with reduced data from Open Data Hub
-    const topics = this.listEventsTopics.filter((topic) => {
-      return topic.Id === TopicRIDs[0];
-    })[0];
-    if (topics) {
-      topicText = topics.TypeDesc[this.language];
+  const categoryIds = [
+    ...((TagIds && TagIds.length && TagIds) || []),
+    ...((TopicRIDs && TopicRIDs.length && TopicRIDs) || []),
+  ];
+  if (categoryIds.length && this.listEventsTopics?.length) {
+    const tag = this.listEventsTopics.find((item) => item.Id === categoryIds[0]);
+    if (tag) {
+      topicText = getTagLabel(tag, this.language);
     }
   }
 
@@ -82,7 +84,7 @@ export function render_details() {
             .text="${details.BaseText || "---"}"
           ></wc-sidemodal-row>`
       : null}
-      ${LocationInfo.TvInfo.Name[this.language]
+      ${LocationInfo?.TvInfo?.Name?.[this.language]
       ? html`<wc-sidemodal-row
             .type="${SIDE_MODAL_ROW_TYPES.vertical}"
             .title="${t["where"][this.language]}"

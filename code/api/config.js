@@ -25,6 +25,6 @@ export const BASEMAP_STYLE_URL =
 
 export const BASE_PATH_TOURISM_EVENT = `${BASE_PATH_TOURISM}/Event`;
 export const BASE_PATH_TOURISM_EVENT_REDUCED = `${BASE_PATH_TOURISM}/EventReduced`;
-export const BASE_PATH_TOURISM_EVENTTOPICS = `${BASE_PATH_TOURISM}/EventTopics`;
+export const BASE_PATH_TOURISM_TAG = `${BASE_PATH_TOURISM}/Tag`;
 export const BASE_PATH_TOURISM_ODHACTIVITYPOI = `${BASE_PATH_TOURISM}/ODHActivityPoi`;
 export const ORIGIN = "origin=webcomp-events";

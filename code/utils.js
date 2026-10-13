@@ -32,8 +32,47 @@ export const getDefaultFilters = () => ({
   radius: "0",
   dateFrom: todayDateString(),
   dateTo: "",
-  topic: [], // Array of numbers
+  tags: [], // Array of Tag.Id strings (eventtopic)
 });
+
+/** Localized label for a Tourism Tag (event category). */
+export function getTagLabel(tag, language) {
+  if (!tag) {
+    return "";
+  }
+  const names = tag.TagName || {};
+  return (
+    names[language] ||
+    names.en ||
+    names.de ||
+    names.it ||
+    tag.Shortname ||
+    tag.Id ||
+    ""
+  );
+}
+
+/**
+ * Normalize categoriesFilter attribute/property to an array of Tag.Id strings.
+ * Accepts a real array or a JSON string like '["id1","id2"]'.
+ */
+export function normalizeCategoriesFilter(value) {
+  if (!value) {
+    return [];
+  }
+  let list = value;
+  if (typeof value === "string") {
+    try {
+      list = JSON.parse(value);
+    } catch (e) {
+      return [];
+    }
+  }
+  if (!Array.isArray(list)) {
+    return [];
+  }
+  return list.map(String).filter(Boolean);
+}
 
 export const STATE_DEFAULT_FILTERS = getDefaultFilters();
 
@@ -90,7 +129,7 @@ export function countFilters(filters) {
     filtersNumber = filtersNumber + 1;
   }
 
-  if (filters.topic.length) {
+  if (filters.tags && filters.tags.length) {
     filtersNumber = filtersNumber + 1;
   }
 

@@ -4,7 +4,7 @@
 
 import { html } from "lit-element";
 import { t } from "../translations";
-import { countFilters, getDefaultFilters } from "../utils";
+import { countFilters, getDefaultFilters, getTagLabel } from "../utils";
 
 export function render_filters() {
   let filtersNumber = countFilters(this.filters);
@@ -78,25 +78,29 @@ export function render_filters() {
     <div>
       <p class="caption">${t["category"][this.language].toUpperCase()}</p>
       <div class="options_container">
-        ${this.listEventsTopics.map((o) => {
+        ${(this.listEventsTopics || []).map((tag) => {
+          const label = getTagLabel(tag, this.language);
+          const selectedTags = this.filters.tags || [];
+          const selected = selectedTags.includes(tag.Id);
           return html`
             <wc-checkbox
-              .value="${this.filters.topic.includes(o.Bitmask)}"
+              .value="${selected}"
               .action="${() => {
-                if (this.filters.topic.includes(o.Bitmask)) {
+                const current = this.filters.tags || [];
+                if (selected) {
                   this.filters = {
                     ...this.filters,
-                    topic: this.filters.topic.filter((c) => c !== o.Bitmask),
+                    tags: current.filter((id) => id !== tag.Id),
                   };
                 } else {
                   this.filters = {
                     ...this.filters,
-                    topic: [...this.filters.topic, o.Bitmask],
+                    tags: [...current, tag.Id],
                   };
                 }
               }}"
-              .label="${o.TypeDesc[this.language]}"
-              .name="chx${o.TypeDesc[this.language]}"
+              .label="${label}"
+              .name="chx${tag.Id}"
             ></wc-checkbox>
           `;
         })}

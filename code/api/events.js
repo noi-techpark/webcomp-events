@@ -4,7 +4,7 @@
 
 import {
   BASE_PATH_TOURISM_EVENT,
-  BASE_PATH_TOURISM_EVENTTOPICS,
+  BASE_PATH_TOURISM_TAG,
   GEO_BASE_URL,
   ORIGIN,
 } from "./config";
@@ -20,12 +20,13 @@ const createUrlFilters = (filters, currentLocation, source) => {
     dateToFilter = `&enddate=${filters.dateTo}`;
   }
 
-  let topicFilter = "";
-  if (filters.topic && filters.topic.length) {
-    const bitmaskSum = filters.topic.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-    topicFilter = `&topicfilter=${bitmaskSum}`;
+  // Tourism Event tagfilter syntax: or(Tag.Id,Tag.Id) / and(...)
+  let tagFilter = "";
+  const selectedTags = (filters && filters.tags) || [];
+  if (selectedTags.length) {
+    tagFilter = `&tagfilter=${encodeURIComponent(
+      `or(${selectedTags.join(",")})`
+    )}`;
   }
 
   let radius = "";
@@ -40,14 +41,19 @@ const createUrlFilters = (filters, currentLocation, source) => {
     sourceFilter = `&source=${encodeURIComponent(source)}`;
   }
 
-  return `${dateFromFilter}${dateToFilter}${topicFilter}${radius}${sourceFilter}`;
+  return `${dateFromFilter}${dateToFilter}${tagFilter}${radius}${sourceFilter}`;
 };
 
 /**
  * Vector tile URL template of the Geo Api. Clustering is done server side.
- * REST Event list calls are too slow for the map; tiles replace them.
+ * Category filter uses tagfilter with Tag.Id values (comma-separated = OR).
  */
-export function eventTilesUrl({ source, begindate, enddate } = {}) {
+export function eventTilesUrl({
+  source,
+  begindate,
+  enddate,
+  tagfilter,
+} = {}) {
   const params = new URLSearchParams({
     operationmode: "points",
     enableclustering: "true",
@@ -60,6 +66,9 @@ export function eventTilesUrl({ source, begindate, enddate } = {}) {
   }
   if (enddate) {
     params.set("enddate", enddate);
+  }
+  if (tagfilter) {
+    params.set("tagfilter", tagfilter);
   }
   return `${GEO_BASE_URL}/api/tiles/event/{z}/{x}/{y}.pbf?${params}`;
 }
@@ -97,16 +106,24 @@ export const requestTourismEventsPaginated = async (
   }
 };
 
-export const requestTourismEventsCodes = async () => {
+/** Event categories as Tags (types=eventtopic). */
+export const requestEventCategoryTags = async () => {
   try {
-    const request = await fetch(`${BASE_PATH_TOURISM_EVENTTOPICS}?` + ORIGIN);
+    const request = await fetch(
+      `${BASE_PATH_TOURISM_TAG}?validforentity=event&types=eventtopic&pagesize=-1&fields=Id,TagName,Shortname,Active&` +
+        ORIGIN
+    );
     if (request.status !== 200) {
       throw new Error(request.statusText);
     }
     const response = await request.json();
-    return response;
+    const items = Array.isArray(response)
+      ? response
+      : response.Items || [];
+    return items.filter((tag) => tag && tag.Id && tag.Active !== false);
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 
