@@ -272,7 +272,10 @@ class Events extends BaseEvents {
           display: block;
           width: ${this.width};
           height: ${height};
+          max-width: 100%;
           box-sizing: border-box;
+          overflow: hidden;
+          position: relative;
         }
       </style>
 

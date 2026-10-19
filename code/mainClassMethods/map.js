@@ -95,13 +95,19 @@ export async function initializeMap() {
       Number.isFinite(lat) ? lat : 46.5,
     ],
     zoom: 10,
-    attributionControl: {
+    // Custom position: bottom-left so attribution stays clear of map_controls
+    attributionControl: false,
+  });
+
+  this.map.addControl(
+    new maplibregl.AttributionControl({
       compact: true,
       customAttribution:
         this.mapAttribution ||
         '<a target="_blank" rel="noopener" href="https://opendatahub.com">Open Data Hub</a>',
-    },
-  });
+    }),
+    "bottom-left"
+  );
 
   this.hoveredId = null;
   this.selectedId = null;

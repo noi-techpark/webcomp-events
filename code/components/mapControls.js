@@ -40,34 +40,26 @@ export function render__mapControls() {
 
   return html`
     <div class="map_controls">
-      <div class="mt-16px">
-        <wc-button
-          @click="${chengeModalityToList}"
-          type="square"
-          .image="${listUlImage}"
-        ></wc-button>
-      </div>
-      <div class="mt-16px">
-        <wc-button
-          @click="${handleBtnCenterMap}"
-          type="square"
-          .image="${findPositionImage}"
-        ></wc-button>
-      </div>
-      <div class="mt-16px">
-        <wc-button
-          @click="${handleBtnZoomIn}"
-          type="square"
-          .image="${plusImage}"
-        ></wc-button>
-        <div class="mt-4px">
-          <wc-button
-            @click="${handleBtnZoomOut}"
-            type="square"
-            .image="${minusImage}"
-          ></wc-button>
-        </div>
-      </div>
+      <wc-button
+        @click="${chengeModalityToList}"
+        type="square"
+        .image="${listUlImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnCenterMap}"
+        type="square"
+        .image="${findPositionImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnZoomIn}"
+        type="square"
+        .image="${plusImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnZoomOut}"
+        type="square"
+        .image="${minusImage}"
+      ></wc-button>
     </div>
   `;
 }
