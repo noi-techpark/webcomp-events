@@ -2,15 +2,13 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import minimizeImage from "../assets/minimize.svg";
 import { html } from "lit-html";
-import expandImage from "../assets/expand.svg";
 import findPositionImage from "../assets/find-position.svg";
 import minusImage from "../assets/minus.svg";
 import plusImage from "../assets/plus.svg";
 import listUlImage from "../assets/list-ul.svg";
 import { drawUserOnMap } from "../mainClassMethods/map";
-import { getCurrentPosition, isMobile, STATE_MODALITIES } from "../utils";
+import { getCurrentPosition, STATE_MODALITIES } from "../utils";
 
 export function render__mapControls() {
   const handleBtnZoomIn = () => {
@@ -42,45 +40,26 @@ export function render__mapControls() {
 
   return html`
     <div class="map_controls">
-      ${this.isMobile
-        ? html`<div class="mt-16px">
-            <wc-button
-              @click="${() => {
-                this.mobileOpen = !this.mobileOpen;
-              }}"
-              type="square"
-              .image="${this.mobileOpen ? minimizeImage : expandImage}"
-            ></wc-button>
-          </div>`
-        : ""}
-      <div class="mt-16px">
-        <wc-button
-          @click="${chengeModalityToList}"
-          type="square"
-          .image="${listUlImage}"
-        ></wc-button>
-      </div>
-      <div class="mt-16px">
-        <wc-button
-          @click="${handleBtnCenterMap}"
-          type="square"
-          .image="${findPositionImage}"
-        ></wc-button>
-      </div>
-      <div class="mt-16px">
-        <wc-button
-          @click="${handleBtnZoomIn}"
-          type="square"
-          .image="${plusImage}"
-        ></wc-button>
-        <div class="mt-4px">
-          <wc-button
-            @click="${handleBtnZoomOut}"
-            type="square"
-            .image="${minusImage}"
-          ></wc-button>
-        </div>
-      </div>
+      <wc-button
+        @click="${chengeModalityToList}"
+        type="square"
+        .image="${listUlImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnCenterMap}"
+        type="square"
+        .image="${findPositionImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnZoomIn}"
+        type="square"
+        .image="${plusImage}"
+      ></wc-button>
+      <wc-button
+        @click="${handleBtnZoomOut}"
+        type="square"
+        .image="${minusImage}"
+      ></wc-button>
     </div>
   `;
 }

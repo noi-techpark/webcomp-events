@@ -26,6 +26,8 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 #map,
@@ -33,9 +35,11 @@
   z-index: 1;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* MapLibre needs a real box; fill the host */
+/* MapLibre needs a real box; fill the host (never viewport units — breaks store embeds) */
 #map {
   position: absolute;
   inset: 0;
@@ -43,10 +47,7 @@
 
 #list {
   z-index: 1;
-  @media only screen and (min-width: 992px) {
-    width: var(--width);
-    height: var(--height);
-  }
+  position: relative;
 
   .link {
     @include MixinParagraphRegular;
@@ -56,47 +57,20 @@
   }
 }
 
-.mobile {
-  &.MODE__mobile__open {
-    #map,
-    #list {
-      width: 100vw;
-      height: calc(100vh - 80px);
-    }
-  }
-  &.MODE__mobile__closed {
-    #map,
-    #list {
-      width: 100vw;
-      height: 300px;
-    }
-    .MODE__mobile__closed__overlay {
-      background: rgba(255, 255, 255, 0.64);
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-}
-
 .events__sideBar {
   position: absolute;
   top: 0;
   left: 0;
-  max-height: 99vh;
+  max-height: 100%;
   z-index: 3;
   overflow: hidden;
-  width: 100%;
+  width: min(100%, 100%);
+  max-width: 100%;
+  box-sizing: border-box;
   @media only screen and (min-width: 768px) {
     max-height: calc(100% - 32px);
-    width: calc(100% - 32px);
     width: 350px;
+    max-width: calc(100% - 32px);
     top: 16px;
     left: 16px;
   }
@@ -212,23 +186,43 @@
 .events__language_picker {
   display: inline;
   position: absolute;
-  right: 16px;
+  right: 8px;
   z-index: 2;
-  top: 80px;
+  top: 8px;
+  max-width: calc(100% - 16px);
 
-  &.big_margin {
-    top: 114px;
-  }
   @media only screen and (min-width: 768px) {
+    right: 16px;
     top: 16px;
   }
 }
 
 .map_controls {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
+  right: 8px;
+  bottom: 8px;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  max-height: calc(100% - 16px);
+  max-width: calc(100% - 16px);
+  box-sizing: border-box;
+  /* Keep the stack inside the map, clear of edges on small embeds */
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+    margin-top: 0 !important;
+  }
+
+  @media only screen and (min-width: 768px) {
+    right: 16px;
+    bottom: 16px;
+    max-height: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
 }
 
 .events__list {
@@ -365,8 +359,19 @@
 /* MapLibre runs inside the shadow root */
 .maplibregl-map {
   font: inherit;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.maplibregl-ctrl-attrib {
+.maplibregl-canvas-container,
+.maplibregl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Attribution bottom-left so it does not collide with map_controls */
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib {
   font-size: 11px;
+  margin: 0 0 8px 8px;
+  max-width: min(70%, 280px);
 }
