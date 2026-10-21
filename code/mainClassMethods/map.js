@@ -15,6 +15,16 @@ const SOURCE_ID = "events";
 const SOURCE_LAYER = "event";
 const LAYER_CLUSTERS = "event-clusters";
 const LAYER_POINTS = "event-points";
+const SPIDER_SOURCE_ID = "event-spider";
+const LAYER_SPIDER_LEGS = "event-spider-legs";
+const LAYER_SPIDER_POINTS = "event-spider-points";
+// From this zoom a cluster carrying its members (Geo Api sends them for up to 10 points)
+// is fanned out on hover/click instead of zooming in; points at the same location never separate
+const SPIDERFY_FROM_ZOOM = 14;
+// Pixel spacing between spider points and the pointer margin before the spider collapses
+const SPIDER_POINT_SPACING = 26;
+const SPIDER_MIN_RADIUS = 34;
+const SPIDER_COLLAPSE_MARGIN = 30;
 const USER_SOURCE_ID = "user-location";
 const USER_LAYER_ID = "user-location-circle";
 
@@ -63,6 +73,7 @@ export function updateEventTiles() {
   if (!this.map || !this.map.getSource(SOURCE_ID)) {
     return;
   }
+  collapseSpider.bind(this)();
   this.map
     .getSource(SOURCE_ID)
     .setTiles([eventTilesUrl(getEventTileParams.bind(this)())]);
@@ -111,6 +122,8 @@ export async function initializeMap() {
 
   this.hoveredId = null;
   this.selectedId = null;
+  this.spider = null;
+  this.spiderHoveredId = null;
   this.detailRequest = this.detailRequest || 0;
 
   await new Promise((resolve, reject) => {
@@ -177,6 +190,7 @@ function addEventLayers() {
       24 + extra,
     ],
   ];
+  const isSpiderfied = ["boolean", ["feature-state", "spiderfied"], false];
   const isActive = [
     "any",
     ["boolean", ["feature-state", "hover"], false],
@@ -200,7 +214,7 @@ function addEventLayers() {
     layout: { "circle-sort-key": count },
     paint: {
       "circle-color": primary,
-      "circle-opacity": 0.18,
+      "circle-opacity": ["case", isSpiderfied, 0, 0.18],
       "circle-radius": clusterRadius(5),
     },
   });
@@ -223,6 +237,7 @@ function addEventLayers() {
         primaryStrong,
       ],
       "circle-radius": clusterRadius(0),
+      "circle-opacity": ["case", isSpiderfied, 0.35, 1],
       "circle-stroke-width": 2,
       "circle-stroke-color": surface,
     },
@@ -241,7 +256,10 @@ function addEventLayers() {
       "symbol-sort-key": count,
       "text-allow-overlap": true,
     },
-    paint: { "text-color": surface },
+    paint: {
+      "text-color": surface,
+      "text-opacity": ["case", isSpiderfied, 0, 1],
+    },
   });
 
   this.map.addLayer({
@@ -267,6 +285,37 @@ function addEventLayers() {
       "circle-stroke-color": surface,
     },
   });
+
+  this.map.addSource(SPIDER_SOURCE_ID, {
+    type: "geojson",
+    data: { type: "FeatureCollection", features: [] },
+    promoteId: "id",
+  });
+
+  this.map.addLayer({
+    id: LAYER_SPIDER_LEGS,
+    type: "line",
+    source: SPIDER_SOURCE_ID,
+    filter: ["==", ["geometry-type"], "LineString"],
+    paint: {
+      "line-color": primaryStrong,
+      "line-width": 1.5,
+      "line-opacity": 0.6,
+    },
+  });
+
+  this.map.addLayer({
+    id: LAYER_SPIDER_POINTS,
+    type: "circle",
+    source: SPIDER_SOURCE_ID,
+    filter: ["==", ["geometry-type"], "Point"],
+    paint: {
+      "circle-color": ["case", isActive, accent, primary],
+      "circle-radius": ["case", isActive, 10, 7],
+      "circle-stroke-width": 2,
+      "circle-stroke-color": surface,
+    },
+  });
 }
 
 function setFeatureState(id, state) {
@@ -278,8 +327,114 @@ function setFeatureState(id, state) {
   }
 }
 
+function setSpiderFeatureState(id, state) {
+  if (id != null && this.map && this.map.getSource(SPIDER_SOURCE_ID)) {
+    this.map.setFeatureState({ source: SPIDER_SOURCE_ID, id }, state);
+  }
+}
+
+function parseClusterMembers(feature) {
+  try {
+    const members = JSON.parse(feature.properties?.members || "null");
+    return Array.isArray(members) && members.length ? members : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+function canSpiderfy(feature) {
+  return (
+    this.map.getZoom() >= SPIDERFY_FROM_ZOOM && !!parseClusterMembers(feature)
+  );
+}
+
+// Fans the cluster members out in a circle around the cluster, offsets in screen pixels
+function spiderfyCluster(feature) {
+  const clusterId = feature.id ?? feature.properties?.id;
+  if (this.spider && this.spider.clusterId === clusterId) {
+    return;
+  }
+  collapseSpider.bind(this)();
+
+  const members = parseClusterMembers(feature);
+  if (!members) {
+    return;
+  }
+  const center = feature.geometry.coordinates;
+  const centerPx = this.map.project(center);
+  const radius = Math.max(
+    SPIDER_MIN_RADIUS,
+    (members.length * SPIDER_POINT_SPACING) / (2 * Math.PI)
+  );
+
+  const features = [];
+  members.forEach((member, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / members.length;
+    const lngLat = this.map.unproject([
+      centerPx.x + radius * Math.cos(angle),
+      centerPx.y + radius * Math.sin(angle),
+    ]);
+    const position = [lngLat.lng, lngLat.lat];
+    const title = typeof member.data === "string" ? member.data : "";
+    features.push({
+      type: "Feature",
+      properties: { id: `leg-${member.id}` },
+      geometry: { type: "LineString", coordinates: [center, position] },
+    });
+    features.push({
+      type: "Feature",
+      properties: { id: member.id, title },
+      geometry: { type: "Point", coordinates: position },
+    });
+  });
+
+  this.map
+    .getSource(SPIDER_SOURCE_ID)
+    .setData({ type: "FeatureCollection", features });
+  setFeatureState.bind(this)(clusterId, { spiderfied: true });
+  if (members.some((member) => member.id === this.selectedId)) {
+    setSpiderFeatureState.bind(this)(this.selectedId, { selected: true });
+  }
+  this.spider = { clusterId, center, radius };
+}
+
+function collapseSpider() {
+  if (!this.spider || !this.map) {
+    return;
+  }
+  setFeatureState.bind(this)(this.spider.clusterId, { spiderfied: false });
+  this.spider = null;
+  this.spiderHoveredId = null;
+  if (this.spiderTooltip) {
+    this.spiderTooltip.remove();
+  }
+  const source = this.map.getSource(SPIDER_SOURCE_ID);
+  if (source) {
+    this.map.removeFeatureState({ source: SPIDER_SOURCE_ID });
+    source.setData({ type: "FeatureCollection", features: [] });
+  }
+}
+
+function showSpiderTooltip(feature) {
+  const title = feature.properties?.title;
+  if (!title) {
+    return;
+  }
+  if (!this.spiderTooltip) {
+    this.spiderTooltip = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 12,
+    });
+  }
+  this.spiderTooltip
+    .setLngLat(feature.geometry.coordinates)
+    .setText(title)
+    .addTo(this.map);
+}
+
 function bindMapEvents() {
-  [LAYER_CLUSTERS, LAYER_POINTS].forEach((layer) => {
+  [LAYER_CLUSTERS, LAYER_POINTS, LAYER_SPIDER_POINTS].forEach((layer) => {
     this.map.on("mouseenter", layer, () => {
       this.map.getCanvas().style.cursor = "pointer";
     });
@@ -302,7 +457,60 @@ function bindMapEvents() {
     this.hoveredId = null;
   });
 
+  // Desktop: hovering a small cluster fans it out
+  this.map.on("mouseenter", LAYER_CLUSTERS, (e) => {
+    const feature = e.features[0];
+    if (feature && canSpiderfy.bind(this)(feature)) {
+      spiderfyCluster.bind(this)(feature);
+    }
+  });
+
+  // Collapse once the pointer leaves the spider area
+  this.map.on("mousemove", (e) => {
+    if (!this.spider) {
+      return;
+    }
+    const centerPx = this.map.project(this.spider.center);
+    const distance = Math.hypot(e.point.x - centerPx.x, e.point.y - centerPx.y);
+    if (distance > this.spider.radius + SPIDER_COLLAPSE_MARGIN) {
+      collapseSpider.bind(this)();
+    }
+  });
+
+  this.map.on("mousemove", LAYER_SPIDER_POINTS, (e) => {
+    const feature = e.features[0];
+    const id = feature?.id;
+    if (id === this.spiderHoveredId) {
+      return;
+    }
+    setSpiderFeatureState.bind(this)(this.spiderHoveredId, { hover: false });
+    this.spiderHoveredId = id;
+    setSpiderFeatureState.bind(this)(id, { hover: true });
+    showSpiderTooltip.bind(this)(feature);
+  });
+  this.map.on("mouseleave", LAYER_SPIDER_POINTS, () => {
+    setSpiderFeatureState.bind(this)(this.spiderHoveredId, { hover: false });
+    this.spiderHoveredId = null;
+    if (this.spiderTooltip) {
+      this.spiderTooltip.remove();
+    }
+  });
+
+  // Pixel offsets do not scale with the zoom
+  this.map.on("zoomstart", () => collapseSpider.bind(this)());
+
   this.map.on("click", LAYER_CLUSTERS, (e) => {
+    if (
+      this.map.queryRenderedFeatures(e.point, { layers: [LAYER_SPIDER_POINTS] })
+        .length
+    ) {
+      return;
+    }
+    // Touch has no hover: a tap fans the cluster out
+    if (canSpiderfy.bind(this)(e.features[0])) {
+      spiderfyCluster.bind(this)(e.features[0]);
+      return;
+    }
     this.map.easeTo({
       center: e.features[0].geometry.coordinates,
       zoom: Math.min(this.map.getZoom() + 2, 17),
@@ -310,15 +518,25 @@ function bindMapEvents() {
   });
 
   this.map.on("click", async (e) => {
+    const spiderFeature = this.map.queryRenderedFeatures(e.point, {
+      layers: [LAYER_SPIDER_POINTS],
+    })[0];
+    if (spiderFeature) {
+      await openEventDetail.bind(this)(spiderFeature);
+      return;
+    }
+    const onCluster = this.map.queryRenderedFeatures(e.point, {
+      layers: [LAYER_CLUSTERS],
+    }).length;
+    if (!onCluster) {
+      collapseSpider.bind(this)();
+    }
     const feature = this.map.queryRenderedFeatures(e.point, {
       layers: [LAYER_POINTS],
     })[0];
     if (feature) {
       await openEventDetail.bind(this)(feature);
-    } else if (
-      !this.map.queryRenderedFeatures(e.point, { layers: [LAYER_CLUSTERS] })
-        .length
-    ) {
+    } else if (!onCluster) {
       closeEventDetail.bind(this)();
     }
   });
@@ -333,8 +551,10 @@ async function openEventDetail(feature) {
     return;
   }
   setFeatureState.bind(this)(this.selectedId, { selected: false });
+  setSpiderFeatureState.bind(this)(this.selectedId, { selected: false });
   this.selectedId = featureId;
   setFeatureState.bind(this)(this.selectedId, { selected: true });
+  setSpiderFeatureState.bind(this)(this.selectedId, { selected: true });
 
   const requestId = ++this.detailRequest;
   const details = await requestTourismEventDetails({
@@ -353,6 +573,7 @@ async function openEventDetail(feature) {
 export function closeEventDetail() {
   this.detailRequest = (this.detailRequest || 0) + 1;
   setFeatureState.bind(this)(this.selectedId, { selected: false });
+  setSpiderFeatureState.bind(this)(this.selectedId, { selected: false });
   this.selectedId = null;
   this.detailsOpen = false;
   this.currentEvent = {};
